@@ -15,12 +15,13 @@
                 <ColumnDefinition Width="65*" />
         </Grid.ColumnDefinitions>
 
+        <!-- Command="Logout" -->
         <ToolBar Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top">
-            <Button Command="Home" Content="Home" Padding="10,0,10,0"/>
-            <Button Command="New" Content="Export" Padding="10,0,10,0"/>
-            <Button Command="Open" Content="View" Padding="10,0,10,0"/>
-            <Button Command="Save" Content="Manage" Padding="10,0,10,0"/>
-            <Button Command="Logout" Content="Logout" Padding="10,0,10,0"/>
+            <Button  Content="Home" Padding="10,0,10,0"/>
+            <Button  Content="Export" Padding="10,0,10,0"/>
+            <Button  Content="View" Padding="10,0,10,0"/>
+            <Button  Content="Manage" Padding="10,0,10,0"/>
+            <Button  Content="Logout" Padding="10,0,10,0"/>
         </ToolBar>
         
     </Grid>
