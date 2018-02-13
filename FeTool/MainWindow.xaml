@@ -15,9 +15,12 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="35*" />
-            <RowDefinition Height="60*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="173*" />
+            <RowDefinition Height="139*" />
+            <RowDefinition Height="22" />
+            <RowDefinition Height="22" />
+            <RowDefinition Height="88*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Column="0" Grid.Row="1">
@@ -53,7 +56,7 @@
         </Grid>
 
         <!-- Command="Logout" -->
-        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,-1,-13,0">
+        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,-1,-13,0" Height="23">
             <Button  Content="File" Padding="15,0,10,0" />
             <Button  Content="Home" Padding="10,0,10,0" />
             <Button  Content="Export" Padding="10,0,10,0" />
@@ -62,13 +65,37 @@
             <Button  Content="Logout" Padding="10,0,10,0" />
         </ToolBar>
 
-        <Expander Header="Expander" HorizontalAlignment="Left" Height="335" VerticalAlignment="Top" Width="515" Margin="0,22,0,0" Grid.RowSpan="3" Background="#FFDCD5D5" Grid.Column="1">
-            <Expander.Content>
-                <ScrollViewer Height="100" VerticalAlignment="Top">
-                    <TextBlock TextWrapping="Wrap" FontSize="14" FontWeight="Light" Foreground="Black">
-                    </TextBlock>
-                </ScrollViewer>
-            </Expander.Content>
-        </Expander>
+        <!-- Upper-right Expander info field-->
+        <StackPanel HorizontalAlignment="Left" Height="335" VerticalAlignment="Top" Width="515" Margin="0,22,0,0" Grid.RowSpan="5" Background="#FFDCD5D5" Grid.Column="1">
+            <ListBox SelectedIndex="1">
+                <ListBoxItem HorizontalContentAlignment="Stretch">
+                    <Expander Header="Test 1">
+                        <ScrollViewer>
+                            <ListBox>
+                                <ListBoxItem Content="Unit 1" />
+                                <ListBoxItem Content="Unit 2" />
+                            </ListBox>
+                        </ScrollViewer>
+                    </Expander>
+                </ListBoxItem>
+                <ListBoxItem HorizontalContentAlignment="Stretch">
+                    <Expander Header="Test 2">
+                        <ScrollViewer>
+                            <ListBox>
+                                <ListBoxItem Content="Unit 1" />
+                                <ListBoxItem Content="Unit 2" />
+                            </ListBox>
+                        </ScrollViewer>
+                    </Expander>
+                </ListBoxItem>
+            </ListBox>
+        </StackPanel>
+
+        <!-- Status Box -->
+        <Button Content="Edit" HorizontalAlignment="left" Height="25" VerticalAlignment="Top"  Width="65" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="3" />
+        <Button Content="History" HorizontalAlignment="left" Height="25" VerticalAlignment="Top"  Width="65" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="4" />
+        <ScrollViewer HorizontalAlignment="Right" Height="150" VerticalAlignment="bottom" Width="450" Grid.RowSpan="1" MinHeight="100" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="5">
+            <TextBox></TextBox>
+        </ScrollViewer>
     </Grid>
 </Window>
