@@ -20,10 +20,23 @@
             <RowDefinition Height="35*" />
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="1">
 
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Baseline"></Button>
+            <Button Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Test"></Button>
+            
+        </Grid>
+        
+        
         <!-- Command="Logout" -->
-        <ToolBar Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top">
-            <Button  Content="Home" Padding="10,0,10,0"/>
+        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,0,-13,0">
+            <Button  Content="Home" Padding="15,0,10,0"/>
             <Button  Content="Export" Padding="10,0,10,0"/>
             <Button  Content="View" Padding="10,0,10,0"/>
             <Button  Content="Manage" Padding="10,0,10,0"/>
