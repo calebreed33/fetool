@@ -9,7 +9,6 @@
         Title="FeToolv0.0" Height="500" Width="800" Background="White">
     <Grid>
 
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*" />
             <ColumnDefinition Width="65*" />
@@ -21,7 +20,7 @@
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="1" >
+        <Grid Grid.Column="0" Grid.Row="1">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -49,22 +48,27 @@
                 <ComboBoxItem>ComboBox Item #2</ComboBoxItem>
                 <ComboBoxItem>ComboBox Item #3</ComboBoxItem>
             </ComboBox>
-            
-            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"></Label>
-            
-            
 
+            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"></Label>
         </Grid>
 
         <!-- Command="Logout" -->
-        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,0,-13,0">
-            <Button  Content="Home" Padding="15,0,10,0"/>
-            <Button  Content="Export" Padding="10,0,10,0"/>
-            <Button  Content="View" Padding="10,0,10,0"/>
-            <Button  Content="Manage" Padding="10,0,10,0"/>
-            <Button  Content="Logout" Padding="10,0,10,0"/>
+        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,-1,-13,0">
+            <Button  Content="File" Padding="15,0,10,0" />
+            <Button  Content="Home" Padding="10,0,10,0" />
+            <Button  Content="Export" Padding="10,0,10,0" />
+            <Button  Content="View" Padding="10,0,10,0" />
+            <Button  Content="Manage" Padding="10,0,10,0" />
+            <Button  Content="Logout" Padding="10,0,10,0" />
         </ToolBar>
 
+        <Expander Header="Expander" HorizontalAlignment="Left" Height="335" VerticalAlignment="Top" Width="515" Margin="0,22,0,0" Grid.RowSpan="3" Background="#FFDCD5D5" Grid.Column="1">
+            <Expander.Content>
+                <ScrollViewer Height="100" VerticalAlignment="Top">
+                    <TextBlock TextWrapping="Wrap" FontSize="14" FontWeight="Light" Foreground="Black">
+                    </TextBlock>
+                </ScrollViewer>
+            </Expander.Content>
+        </Expander>
     </Grid>
-
 </Window>
