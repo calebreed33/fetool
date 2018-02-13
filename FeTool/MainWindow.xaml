@@ -8,11 +8,11 @@
         mc:Ignorable="d"
         Title="FeToolv0.0" Height="500" Width="800" Background="White">
     <Grid>
-        
-        
+
+
         <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="35*" />
-                <ColumnDefinition Width="65*" />
+            <ColumnDefinition Width="35*" />
+            <ColumnDefinition Width="65*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -20,7 +20,20 @@
             <RowDefinition Height="35*" />
             <RowDefinition Height="60*" />
         </Grid.RowDefinitions>
-        
+
+        <Grid Grid.Column="0" Grid.Row="1" >
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="60*" />
+            </Grid.RowDefinitions>
+
+            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="2">
+            </Label>
+
+        </Grid>
+
         <Grid Grid.Row="1">
 
             <Grid.ColumnDefinitions>
@@ -30,10 +43,10 @@
 
             <Button Grid.Column="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Baseline"></Button>
             <Button Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Test"></Button>
-            
+
         </Grid>
-        
-        
+
+
         <!-- Command="Logout" -->
         <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,0,-13,0">
             <Button  Content="Home" Padding="15,0,10,0"/>
@@ -42,7 +55,7 @@
             <Button  Content="Manage" Padding="10,0,10,0"/>
             <Button  Content="Logout" Padding="10,0,10,0"/>
         </ToolBar>
-        
+
     </Grid>
 
 </Window>
