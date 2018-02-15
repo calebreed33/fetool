@@ -36,6 +36,7 @@
                 <RowDefinition Height="15*" />
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
+            
 
             <Button Grid.Column="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Baseline"></Button>
             <Button Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Test"></Button>
@@ -53,7 +54,14 @@
             </ComboBox>
 
             <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"></Label>
+            
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="Search Bar Placeholder" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
         </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="2" HorizontalAlignment="Right" Grid.RowSpan="4">
+            ...
+        </ScrollViewer>
 
         <!-- Command="Logout" -->
         <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" MaxHeight="45" VerticalAlignment="Top" Background="#FF85888B" Margin="-5,-1,-13,0" Height="23">
@@ -97,5 +105,6 @@
         <ScrollViewer HorizontalAlignment="Right" Height="150" VerticalAlignment="bottom" Width="450" Grid.RowSpan="1" MinHeight="100" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="5">
             <TextBox></TextBox>
         </ScrollViewer>
+        
     </Grid>
 </Window>
