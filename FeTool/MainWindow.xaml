@@ -89,7 +89,7 @@
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" >
             <ListBox SelectedIndex="1">
                 <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 1">
+                    <Expander Header="Test 1" Background="#FFE5E5E5" BorderBrush="#FFACACAC">
                         <ScrollViewer>
                             <ListBox>
                                 <ListBoxItem Content="Unit 1" />
@@ -99,7 +99,7 @@
                     </Expander>
                 </ListBoxItem>
                 <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 2">
+                    <Expander Header="Test 2" Background="#FFE5E5E5" BorderBrush="#FFACACAC">
                         <ScrollViewer>
                             <ListBox>
                                 <ListBoxItem Content="Unit 1" />
@@ -121,8 +121,8 @@
                 <RowDefinition Height="30*" />
             </Grid.RowDefinitions>
 
-            <Button Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="100" Background="#FFDCD5D5" Grid.Row="1" />
-            <Button Content="History" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="100" Background="#FFDCD5D5" Grid.Row="2" />
+            <Button Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="100" Background="#FFAEAEAE" Grid.Row="1" />
+            <Button Content="History" HorizontalAlignment="Left" VerticalAlignment="Stretch"  Width="100" Background="#FFAEAEAE" Grid.Row="2" />
             <ScrollViewer HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="415" Background="#FFDCD5D5" Grid.Row="1" Grid.RowSpan="3">
                 <TextBox Height="100"></TextBox>
             </ScrollViewer>
