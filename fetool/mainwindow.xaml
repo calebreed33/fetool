@@ -89,7 +89,7 @@
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" >
             <ListBox SelectedIndex="1">
                 <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 1">
+                    <Expander Header="Test 1" Background="#FFE5E5E5" BorderBrush="#FFACACAC">
                         <ScrollViewer>
                             <ListBox>
                                 <ListBoxItem Content="Unit 1" />
@@ -99,7 +99,7 @@
                     </Expander>
                 </ListBoxItem>
                 <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 2">
+                    <Expander Header="Test 2" Background="#FFE5E5E5">
                         <ScrollViewer>
                             <ListBox>
                                 <ListBoxItem Content="Unit 1" />
