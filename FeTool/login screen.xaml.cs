@@ -30,9 +30,10 @@ namespace FeTool
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             comboBox1.Name = "Combobox1";
-            comboBox1.Background = SystemColors.White;
+            comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
 
 
         }
     }
+}
