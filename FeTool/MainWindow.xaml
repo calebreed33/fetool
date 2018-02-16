@@ -86,7 +86,7 @@
         </ToolBar>
 
         <!-- Upper-right Expander info field-->
-        <StackPanel HorizontalAlignment="Left" Height="Stretch" VerticalAlignment="Top" Width="Stretch" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" >
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" >
             <ListBox SelectedIndex="1">
                 <ListBoxItem HorizontalContentAlignment="Stretch">
                     <Expander Header="Test 1">
