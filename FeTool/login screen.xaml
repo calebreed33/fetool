@@ -45,10 +45,10 @@
 
         <ComboBox Margin="352,148,252.333,190" SelectionChanged="ComboBox_SelectionChanged" >
             <ComboBoxItem IsSelected="True">User #1</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">User #2</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">User #3</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">User #4</ComboBoxItem>
-            <ComboBoxItem IsSelected="True">User #5</ComboBoxItem>
+            <ComboBoxItem >User #2</ComboBoxItem>
+            <ComboBoxItem>User #3</ComboBoxItem>
+            <ComboBoxItem>User #4</ComboBoxItem>
+            <ComboBoxItem>User #5</ComboBoxItem>
 
         </ComboBox>
 
