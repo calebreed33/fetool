@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,14 +25,20 @@ namespace FeTool
         }
 
         ComboBox comboBox1 = new ComboBox();
+        TextBox textbox1 = new TextBox();
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             comboBox1.Name = "Combobox1";
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
+        }
+        string textBox1 = " ";
+        string Password = " ";
 
-
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //Set to text
         }
     }
 }
