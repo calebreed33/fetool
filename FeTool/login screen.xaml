@@ -6,53 +6,44 @@
         xmlns:local="clr-namespace:FeTool"
         mc:Ignorable="d"
         Title="Login Screen" Height="500" Width="800">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="0*" />
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="118*" />
             <RowDefinition Height="39*" />
             <RowDefinition Height="0*" />
         </Grid.RowDefinitions>
-
         <Grid Grid.Column="0" Margin="0,9,0.333,-7.333" Grid.RowSpan="2" Grid.Row="1" >
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*" />
                 <RowDefinition Height="15*" />
                 <RowDefinition Height="60*" />
             </Grid.RowDefinitions>
         </Grid>
-
         <Grid Margin="0,9,0.333,-7.333" Grid.RowSpan="2" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
         </Grid>
-
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="User" Height="16" Margin="311,148,458.333,190" Width="24" RenderTransformOrigin="-1.925,0.612">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="User" Height="16" Margin="311,207,458.333,131" Width="24" RenderTransformOrigin="-1.925,0.612">
         </TextBlock>
-
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Password" Height="16"  RenderTransformOrigin="-1.925,0.612" Margin="285,222,458.333,116">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Password" Height="16"  RenderTransformOrigin="-1.925,0.612" Margin="285,268,458.333,70">
         </TextBlock>
-
-        <ComboBox Margin="352,145,252.333,188" SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.511,3.026" >
+        <ComboBox Margin="352,202,252.333,131" SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.511,3.026" >
             <ComboBoxItem IsSelected="True">User #1</ComboBoxItem>
             <ComboBoxItem >User #2</ComboBoxItem>
             <ComboBoxItem>User #3</ComboBoxItem>
             <ComboBoxItem>User #4</ComboBoxItem>
             <ComboBoxItem>User #5</ComboBoxItem>
         </ComboBox>
-
-        <TextBox Margin="352,217,251.333,116" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9" >
-            
+        <TextBox x:Name="PasswordBox" Margin="352,268,251.333,65" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9"  >
         </TextBox>
-
-
+        <Button Content="Login" Margin="406,319,292.333,10" RenderTransformOrigin="2.012,-0.353"></Button>
+        <Button Content="+" Margin="622,45.625,74.333,235.375" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="97" TextOptions.TextHintingMode="Fixed" Height="73" RenderTransformOrigin="0.493,0.425" UseLayoutRounding="False" BorderBrush="{x:Null}"></Button>
+        <TextBlock Text="  Select Database" Margin="622,106,74.333,213"></TextBlock>
     </Grid>
 </Window>

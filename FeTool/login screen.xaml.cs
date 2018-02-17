@@ -12,8 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-
 namespace FeTool
 {
     /// <summary>
@@ -21,33 +19,30 @@ namespace FeTool
     /// </summary>
     public partial class LoginScreen : Window
     {
+        ComboBox comboBox1 = new ComboBox();
+        TextBox PasswordBox = new TextBox();
+        public char PasswordChar { get; set; }
         public LoginScreen()
         {
             InitializeComponent();
+            //PasswordBox.PasswordChar = '*';
+            PasswordBox.MaxLength = 14;
+        }
+        private void InitializeComponent()
+        {
+            throw new NotImplementedException();
         }
 
-        ComboBox comboBox1 = new ComboBox();
-        TextBox textBox1 = new TextBox();
-
-       
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             comboBox1.Name = "Combobox1";
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
         }
-     
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Set to text
         }
 
-        private void InitializeMyControl()
-        {
-            textBox1.Text = "";
-            textBox1.PasswordChar = '*';
-            textBox1.MaxLength = 14;
-        }
     }
 }
