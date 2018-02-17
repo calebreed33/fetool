@@ -49,7 +49,7 @@
             <ComboBoxItem>User #5</ComboBoxItem>
         </ComboBox>
 
-        <TextBox Margin="352,217,251.333,116" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" >
+        <TextBox Margin="352,217,251.333,116" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9" >
             
         </TextBox>
 

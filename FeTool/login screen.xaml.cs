@@ -10,7 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace FeTool
 {
@@ -25,20 +27,27 @@ namespace FeTool
         }
 
         ComboBox comboBox1 = new ComboBox();
-        TextBox textbox1 = new TextBox();
+        TextBox textBox1 = new TextBox();
 
+       
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             comboBox1.Name = "Combobox1";
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
         }
-        string textBox1 = " ";
-        string Password = " ";
+     
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             //Set to text
+        }
+
+        private void InitializeMyControl()
+        {
+            textBox1.Text = "";
+            textBox1.PasswordChar = '*';
+            textBox1.MaxLength = 14;
         }
     }
 }
