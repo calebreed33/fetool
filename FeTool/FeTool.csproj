@@ -54,12 +54,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ExpanderToBooleanConverter.cs" />
     <Compile Include="CreateToolBarButtons.cs" />
     <Compile Include="login screen.xaml.cs">
       <DependentUpon>login screen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolStrip.cs" />
     <Compile Include="ToolStripcs.cs" />
+    <Compile Include="ViewModels\ExpanderListViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -104,5 +107,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
