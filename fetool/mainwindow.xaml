@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeTool"
+        xmlns:converters="clr-namespace:FeTool.Converters"
         mc:Ignorable="d"
         Title="FeToolv0.0" Height="500" Width="800" Background="White">
 
@@ -48,11 +49,10 @@
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
 
-
             <Button Grid.Column="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Baseline" Background="#FFAEAEAE"></Button>
             <Button Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Test" Background="#FFAEAEAE"></Button>
 
-            <ComboBox Grid.Row="1" SelectionChanged="ComboBox_SelectionChanged_2">
+            <ComboBox Grid.Row="1">
                 <ComboBoxItem IsSelected="True">Baseline #1</ComboBoxItem>
                 <ComboBoxItem>Baseline #2</ComboBoxItem>
                 <ComboBoxItem>Baseline #3</ComboBoxItem>
@@ -123,41 +123,14 @@
             <Button  Content="Logout" Padding="10,0,10,0" />
         </ToolBar>
 
-        <!-- Upper-right Expander info field-->
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFDCD5D5" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
-            <ListBox SelectedIndex="1">
-                <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 1" Background="#FFE5E5E5" BorderBrush="#FFACACAC">
-                        <ScrollViewer>
-                            <ListBox>
-                                <ListBoxItem Content="Unit 1" />
-                                <ListBoxItem Content="Unit 2" />
-                            </ListBox>
-                        </ScrollViewer>
-                    </Expander>
-                </ListBoxItem>
-                <ListBoxItem HorizontalContentAlignment="Stretch">
-                    <Expander Header="Test 2" Background="#FFE5E5E5">
-                        <ScrollViewer>
-                            <ListBox>
-                                <ListBoxItem Content="Unit 1" />
-                                <ListBoxItem Content="Unit 2" />
-                            </ListBox>
-                        </ScrollViewer>
-                    </Expander>
-                </ListBoxItem>
-            </ListBox>
-        </StackPanel>
 
-        <!-- Status Box -->
-
-        <Grid Grid.Row="2" Grid.Column="1" Background="#FFE5E5E5">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="#FFE5E5E5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*" />
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="15*" />
+                <RowDefinition Height="90*" />
                 <RowDefinition Height="10*" />
-                <RowDefinition Height="15*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="10*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -165,6 +138,24 @@
                 <ColumnDefinition Width="80*" />
             </Grid.ColumnDefinitions>
 
+            <StackPanel Name="StackPanel1" Grid.ColumnSpan="2">
+                <StackPanel.Resources>
+                    <converters:ExpanderToBooleanConverter x:Key="ExpanderToBooleanConverter" />
+                </StackPanel.Resources>
+                <Expander Header="V-Key Details"
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
+                    <TextBlock>V-Key Details Text</TextBlock>
+                </Expander>
+                <Expander Header="Compliance Information"
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
+                    <TextBlock>Compliance Information Text</TextBlock>
+                </Expander>
+                <Expander Header="Administrative Information"
+                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
+                    <TextBlock>Administrative Information Text</TextBlock>
+                </Expander>
+            </StackPanel>
+            
             <Button Content="Edit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFAEAEAE" Grid.Row="1" Grid.Column="0" />
             
             <Button Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
@@ -173,7 +164,7 @@
                 <TextBox VerticalContentAlignment="Stretch"></TextBox>
             </ScrollViewer>
 
-            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5"/>
+            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFAEAEAE"/>
 
             <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
                 <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
