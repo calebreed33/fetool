@@ -173,7 +173,7 @@
                 <TextBox VerticalContentAlignment="Stretch"></TextBox>
             </ScrollViewer>
 
-            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFAEAEAE"/>
+            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5"/>
 
             <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
                 <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
