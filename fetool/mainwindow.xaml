@@ -120,7 +120,7 @@
             <Button  Content="Export" Padding="10,0,10,0" />
             <Button  Content="View" Padding="10,0,10,0" />
             <Button  Content="Manage" Padding="10,0,10,0" />
-            <Button  Content="Logout" Padding="10,0,10,0" />
+            <Button Name="Logout" Click="LogoutClick" Content="Logout" Padding="10,0,10,0" />
         </ToolBar>
 
 
@@ -142,17 +142,17 @@
                 <StackPanel.Resources>
                     <converters:ExpanderToBooleanConverter x:Key="ExpanderToBooleanConverter" />
                 </StackPanel.Resources>
-                <Expander Header="V-Key Details"
+                <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
-                    <TextBlock>V-Key Details Text</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Text="V-Key Details Text" Padding="8" Height="230"/>
                 </Expander>
-                <Expander Header="Compliance Information"
+                <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
-                    <TextBlock>Compliance Information Text</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Text="Compliance Information Text" Padding="8" Height="230"/>
                 </Expander>
-                <Expander Header="Administrative Information"
+                <Expander Header="Administrative Information" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
-                    <TextBlock>Administrative Information Text</TextBlock>
+                    <TextBlock TextWrapping="Wrap" Text="Administrative Information Text" Padding="8" Height="230"/>
                 </Expander>
             </StackPanel>
             
@@ -164,7 +164,7 @@
                 <TextBox VerticalContentAlignment="Stretch"></TextBox>
             </ScrollViewer>
 
-            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFAEAEAE"/>
+            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5"/>
 
             <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
                 <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
