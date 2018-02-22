@@ -115,7 +115,16 @@
 
         <!-- Command="Logout" -->
         <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Background="#FFAEAEAE" Margin="-5,-1,-13,0">
-            <Button  Content="File" Padding="15,0,10,0" />
+            <Menu>
+                <MenuItem  Header="File" Padding="15,0,10,0">
+                    <MenuItem  Header="File Option 1"/>
+                    <MenuItem  Header="File Option 2"/>
+                    <MenuItem  Header="File Option 3"/>
+                 </MenuItem>
+                <MenuItem Header="Menu" Padding="10,0,10,0">
+                    <MenuItem Header="MenuItem1"/>
+                </MenuItem>
+            </Menu>
             <Button  Content="Home" Padding="10,0,10,0" />
             <Button  Content="Export" Padding="10,0,10,0" />
             <Button  Content="View" Padding="10,0,10,0" />
