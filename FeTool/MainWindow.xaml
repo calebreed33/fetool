@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:FeTool"
         xmlns:converters="clr-namespace:FeTool.Converters"
         mc:Ignorable="d"
-        Title="FeToolv0.0" Height="500" Width="800" Background="White">
+        Title="FeToolv0.0" Height="700" Width="1000" Background="White">
 
     <Window.Resources>
         <Style  TargetType="{x:Type ListBoxItem}">
@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="35*"/>
             <RowDefinition Height="60*"/>
         </Grid.RowDefinitions>
@@ -49,16 +49,16 @@
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Baseline" Background="#FFAEAEAE"></Button>
-            <Button Grid.Column="1" Height="25" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Import Test" Background="#FFAEAEAE"></Button>
+            <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Baseline" Background="#FFAEAEAE"></Button>
+            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Test" Background="#FFAEAEAE"></Button>
 
-            <ComboBox Grid.Row="1">
+            <ComboBox Grid.Row="1" VerticalContentAlignment="Center">
                 <ComboBoxItem IsSelected="True">Baseline #1</ComboBoxItem>
                 <ComboBoxItem>Baseline #2</ComboBoxItem>
                 <ComboBoxItem>Baseline #3</ComboBoxItem>
             </ComboBox>
 
-            <ComboBox Grid.Row="1" Grid.Column="1">
+            <ComboBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center">
                 <ComboBoxItem IsSelected="True">Test #1</ComboBoxItem>
                 <ComboBoxItem>Test #2</ComboBoxItem>
                 <ComboBoxItem>Test #3</ComboBoxItem>
@@ -77,7 +77,7 @@
                 <RowDefinition Height="90*" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+            <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                 <ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
                 <ComboBoxItem>STIG 2</ComboBoxItem>
                 <ComboBoxItem>STIG 3</ComboBoxItem>
@@ -114,24 +114,22 @@
         </Grid>
 
         <!-- Command="Logout" -->
-        <ToolBar ToolBarTray.IsLocked="True" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Background="#FFAEAEAE" Margin="-5,-1,-13,0">
-            <Menu>
-                <MenuItem  Header="File" Padding="15,0,10,0">
+            <Menu Background="#FFAEAEAE" Height="20" Grid.ColumnSpan="2">
+                <MenuItem Header="Home"></MenuItem>
+                <MenuItem Header="File">
                     <MenuItem  Header="File Option 1"/>
                     <MenuItem  Header="File Option 2"/>
                     <MenuItem  Header="File Option 3"/>
-                 </MenuItem>
-                <MenuItem Header="Menu" Padding="10,0,10,0">
-                    <MenuItem Header="MenuItem1"/>
                 </MenuItem>
+                <MenuItem Header="View">
+                    <MenuItem Header="View Option #1"/>
+                    <MenuItem Header="View Option #2"/>
+                    <MenuItem Header="View Option #3"/>
+                </MenuItem>
+                <MenuItem Header="Export"></MenuItem>
+                <MenuItem Header="Content"></MenuItem>
+                <MenuItem Header="Logout" Click="LogoutClick" ></MenuItem>
             </Menu>
-            <Button  Content="Home" Padding="10,0,10,0" />
-            <Button  Content="Export" Padding="10,0,10,0" />
-            <Button  Content="View" Padding="10,0,10,0" />
-            <Button  Content="Manage" Padding="10,0,10,0" />
-            <Button Name="Logout" Click="LogoutClick" Content="Logout" Padding="10,0,10,0" />
-        </ToolBar>
-
 
         <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="#FFE5E5E5">
             <Grid.RowDefinitions>
