@@ -120,7 +120,7 @@
             <Button  Content="Export" Padding="10,0,10,0" />
             <Button  Content="View" Padding="10,0,10,0" />
             <Button  Content="Manage" Padding="10,0,10,0" />
-            <Button  Content="Logout" Padding="10,0,10,0" />
+            <Button Name="Logout" Click="LogoutClick" Content="Logout" Padding="10,0,10,0" />
         </ToolBar>
 
 

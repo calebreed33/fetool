@@ -22,15 +22,12 @@ namespace FeTool
         ComboBox comboBox1 = new ComboBox();
         TextBox PasswordBox = new TextBox();
         public char PasswordChar { get; set; }
+
         public LoginScreen()
         {
             InitializeComponent();
             //PasswordBox.PasswordChar = '*';
-            PasswordBox.MaxLength = 14;
-        }
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
+           // PasswordBox.MaxLength = 14;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

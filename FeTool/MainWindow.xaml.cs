@@ -27,5 +27,14 @@ namespace FeTool
             StackPanel1.DataContext = new ExpanderListViewModel();
         }
 
+        private void LogoutClick(object sender, RoutedEventArgs e)
+        {
+            
+            var window = new LoginScreen();
+            this.Close();
+            window.ShowDialog();
+            
+        }
+
     }
 }

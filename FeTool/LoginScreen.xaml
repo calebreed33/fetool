@@ -40,7 +40,7 @@
             <ComboBoxItem>User #4</ComboBoxItem>
             <ComboBoxItem>User #5</ComboBoxItem>
         </ComboBox>
-        <TextBox x:Name="PasswordBox" Margin="352,268,251.333,65" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9"  >
+        <TextBox Margin="352,268,251.333,65" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9"  >
         </TextBox>
         <Button Content="Login" Margin="406,319,292.333,10" RenderTransformOrigin="2.012,-0.353"></Button>
         <Button Content="+" Margin="622,45.625,74.333,235.375" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="97" TextOptions.TextHintingMode="Fixed" Height="73" RenderTransformOrigin="0.493,0.425" UseLayoutRounding="False" BorderBrush="{x:Null}"></Button>

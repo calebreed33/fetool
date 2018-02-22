@@ -56,8 +56,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\ExpanderToBooleanConverter.cs" />
     <Compile Include="CreateToolBarButtons.cs" />
-    <Compile Include="login screen.xaml.cs">
-      <DependentUpon>login screen.xaml</DependentUpon>
+    <Compile Include="LoginScreen.xaml.cs">
+      <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolStrip.cs" />
     <Compile Include="ToolStripcs.cs" />
@@ -98,11 +98,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EmbeddedResource Include="login screen.xaml">
+    <Page Include="LoginScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
