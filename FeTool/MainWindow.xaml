@@ -170,7 +170,6 @@
                 <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
                 <ComboBoxItem>Position #2</ComboBoxItem>
                 <ComboBoxItem>Position #3</ComboBoxItem>
-                <ComboBoxItem>Position #4</ComboBoxItem>
             </ComboBox>
             
         </Grid>
