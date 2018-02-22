@@ -30,7 +30,7 @@ namespace FeTool
         private void LogoutClick(object sender, RoutedEventArgs e)
         {
             
-            var window = new LoginScreen();
+            LoginScreen window = new LoginScreen();
             this.Close();
             window.ShowDialog();
             
