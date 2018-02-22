@@ -62,8 +62,6 @@
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ToolStrip.cs" />
-    <Compile Include="ToolStripcs.cs" />
     <Compile Include="ViewModels\ExpanderListViewModel.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="CommentHistory.xaml">
