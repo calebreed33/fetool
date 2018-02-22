@@ -64,7 +64,7 @@
                 <ComboBoxItem>Test #3</ComboBoxItem>
             </ComboBox>
 
-            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"></Label>
+            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"/>
 
             <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="Search Bar Placeholder" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
@@ -158,7 +158,7 @@
             
             <Button Content="Edit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFAEAEAE" Grid.Row="1" Grid.Column="0" />
             
-            <Button Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
+            <Button Name="History" Click="HistoryClick" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
             
             <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
                 <TextBox VerticalContentAlignment="Stretch"></TextBox>

@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommentHistory.xaml.cs">
+      <DependentUpon>CommentHistory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ExpanderToBooleanConverter.cs" />
     <Compile Include="CreateToolBarButtons.cs" />
     <Compile Include="LoginScreen.xaml.cs">
@@ -63,6 +66,10 @@
     <Compile Include="ToolStripcs.cs" />
     <Compile Include="ViewModels\ExpanderListViewModel.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
+    <Page Include="CommentHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

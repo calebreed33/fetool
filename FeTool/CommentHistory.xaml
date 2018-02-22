@@ -1,0 +1,83 @@
+﻿<Window x:Class="FeTool.CommentHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FeTool"
+        mc:Ignorable="d"
+        Title="Comment History" Height="300" Width="400">
+
+    <Window.Resources>
+        <Style  TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#FFAEAEAE"></Setter>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FFE5E5E5"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="90*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Name of Account Logged In : Name of STIG : Name of V-KEY" Background="#FFAEAEAE" />
+
+        <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" AlternationCount="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+            <ListBoxItem>
+                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
+            </ListBoxItem>
+        </ListBox>
+
+    </Grid>
+</Window>

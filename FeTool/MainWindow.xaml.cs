@@ -33,8 +33,12 @@ namespace FeTool
             LoginScreen window = new LoginScreen();
             this.Close();
             window.ShowDialog();
-            
         }
+        private void HistoryClick(object sender, RoutedEventArgs e)
+        {
 
+            CommentHistory window = new CommentHistory();
+            window.ShowDialog();
+        }
     }
 }
