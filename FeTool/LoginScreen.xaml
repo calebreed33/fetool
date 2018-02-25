@@ -8,28 +8,35 @@
         Title="Login Screen" Height="500" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="0*" />
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="35*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250*" />
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="35*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="  User" Height="16" Margin="237,218,522.333,236.667" Width="34" RenderTransformOrigin="-1.925,0.612">
-        </TextBlock>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="  Password" Height="16"  RenderTransformOrigin="-1.925,0.612" Margin="213,284,522.333,170.667" Width="58">
-        </TextBlock>
-        <ComboBox Margin="299,202,305.333,236.667" MaxHeight="30" MaxWidth="255" SelectionChanged="ComboBox_SelectionChanged" RenderTransformOrigin="0.511,3.026" >
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Content="User:" Height="Auto" FontSize="18" />
+
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Password:" Height="Auto" FontSize="18"/>
+
+        <ComboBox Grid.Row="1" Grid.Column="2" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem IsSelected="True">User #1</ComboBoxItem>
             <ComboBoxItem >User #2</ComboBoxItem>
             <ComboBoxItem>User #3</ComboBoxItem>
             <ComboBoxItem>User #4</ComboBoxItem>
             <ComboBoxItem>User #5</ComboBoxItem>
         </ComboBox>
-        <TextBox Margin="299,268,305.333,170.667" MaxHeight="30" MaxWidth="255" RenderTransformOrigin="0.492,4.254" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9"  >
-        </TextBox>
-        <Button Content="Login" Margin="350,322,348.333,125.667" MaxHeight="25" MaxWidth="100" RenderTransformOrigin="2.012,-0.353"></Button>
-        <Button Content="+" Margin="623,46,73.333,351.667" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="97" TextOptions.TextHintingMode="Fixed" Height="73" RenderTransformOrigin="0.493,0.425" UseLayoutRounding="False" BorderBrush="{x:Null}"></Button>
-        <TextBlock Text="  Select Database" Margin="622,46,73.333,393.667"></TextBlock>
+
+        <TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="35" HorizontalAlignment="Stretch" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9" />
+
+        <Button Grid.Row="2" Grid.Column="2" Content="Login" MaxHeight="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" MaxWidth="300"/>
+
+        <Button Grid.Row="0" Grid.Column="3" Content="+" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" TextOptions.TextHintingMode="Fixed" Height="120" UseLayoutRounding="False" BorderBrush="{x:Null}" VerticalContentAlignment="Bottom"/>
+
+        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select Database"/>
     </Grid>
 </Window>
