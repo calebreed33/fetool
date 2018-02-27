@@ -1,6 +1,8 @@
 ﻿using FeTool.ViewModels;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +41,20 @@ namespace FeTool
 
             CommentHistory window = new CommentHistory();
             window.ShowDialog();
+        }
+        private void ImportBaselineClick(object sender, RoutedEventArgs e)
+        {
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.FileName = @"C:\";
+            process.Start();
+        }
+        private void ImportTestClick(object sender, RoutedEventArgs e)
+        {
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.FileName = @"C:\";
+            process.Start();
         }
     }
 }

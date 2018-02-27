@@ -31,7 +31,7 @@
             <ComboBoxItem>User #5</ComboBoxItem>
         </ComboBox>
 
-        <TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="35" HorizontalAlignment="Stretch" TextChanged="TextBox_TextChanged" Background="#FFE9E9E9" />
+        <PasswordBox x:Name="passwordBox" PasswordChar="*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="35" HorizontalAlignment="Stretch" Background="#FFE9E9E9" />
 
         <Button Grid.Row="2" Grid.Column="2" Content="Login" MaxHeight="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" MaxWidth="300"/>
 

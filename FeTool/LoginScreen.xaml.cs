@@ -27,8 +27,6 @@ namespace FeTool
         public LoginScreen()
         {
             InitializeComponent();
-            //PasswordBox.PasswordChar = '*';
-           // PasswordBox.MaxLength = 14;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -36,10 +34,6 @@ namespace FeTool
             comboBox1.Name = "Combobox1";
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //Set to text
         }
 
     }

@@ -49,8 +49,8 @@
                 <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Baseline" Background="#FFAEAEAE"></Button>
-            <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Test" Background="#FFAEAEAE"></Button>
+            <Button Click="ImportBaselineClick" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Baseline" Background="#FFAEAEAE"></Button>
+            <Button Click="ImportTestClick" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Test" Background="#FFAEAEAE"></Button>
 
             <ComboBox Grid.Row="1" VerticalContentAlignment="Center">
                 <ComboBoxItem IsSelected="True">Baseline #1</ComboBoxItem>
