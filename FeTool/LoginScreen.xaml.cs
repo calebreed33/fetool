@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FeTool.ViewModels;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +38,19 @@ namespace FeTool
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
         }
+        private void ImportData (object sender, RoutedEventArgs e)
+        {
+            Process process = new Process();
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.FileName = @"C:\";
+            process.Start();
 
+        }
+        private void LoginClick (object sender, RoutedEventArgs e)
+        {
+            MainWindow window = new MainWindow();
+            this.Close();
+            window.ShowDialog();
+        }
     }
 }
