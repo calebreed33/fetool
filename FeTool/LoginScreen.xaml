@@ -6,37 +6,37 @@
         xmlns:local="clr-namespace:FeTool"
         mc:Ignorable="d"
         Title="Login Screen" Height="500" Width="800">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="20*" />
-      <ColumnDefinition Width="15*" />
-      <ColumnDefinition Width="30*" />
-      <ColumnDefinition Width="35*" />
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="35*" />
-      <RowDefinition Height="30*" />
-      <RowDefinition Height="35*" />
-    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="35*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
 
-    <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Content="User:" Height="Auto" FontSize="18" />
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Content="User:" Height="Auto" FontSize="18" />
 
-    <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Password:" Height="Auto" FontSize="18" />
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Content="Password:" Height="Auto" FontSize="18"/>
 
-    <ComboBox Grid.Row="1" Grid.Column="2" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged">
-      <ComboBoxItem IsSelected="True">User #1</ComboBoxItem>
-      <ComboBoxItem>User #2</ComboBoxItem>
-      <ComboBoxItem>User #3</ComboBoxItem>
-      <ComboBoxItem>User #4</ComboBoxItem>
-      <ComboBoxItem>User #5</ComboBoxItem>
-    </ComboBox>
+        <ComboBox Grid.Row="1" Grid.Column="2" Height="35" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem IsSelected="True">User #1</ComboBoxItem>
+            <ComboBoxItem >User #2</ComboBoxItem>
+            <ComboBoxItem>User #3</ComboBoxItem>
+            <ComboBoxItem>User #4</ComboBoxItem>
+            <ComboBoxItem>User #5</ComboBoxItem>
+        </ComboBox>
 
-    <PasswordBox x:Name="passwordBox" PasswordChar="*" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="35" HorizontalAlignment="Stretch" Background="#FFE9E9E9" />
+        <PasswordBox x:Name="passwordBox" PasswordChar="*" MaxLength="14" Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" VerticalContentAlignment="Center" Height="35" HorizontalAlignment="Stretch" Background="#FFE9E9E9" />
 
-    <Button Click ="LoginClick" Grid.Row="2" Grid.Column="2" Content="Login" MaxHeight="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" MaxWidth="300" />
+        <Button Click ="LoginClick" Grid.Row="2" Grid.Column="2" Content="Login" MaxHeight="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" MaxWidth="300"/>
 
-    <Button Click ="ImportData" Grid.Row="0" Grid.Column="3" Content="+" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" TextOptions.TextHintingMode="Fixed" Height="120" UseLayoutRounding="False" BorderBrush="{x:Null}" VerticalContentAlignment="Bottom" />
+        <Button Click ="ImportData" Grid.Row="0" Grid.Column="3" Content="+" FontSize="48" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100" TextOptions.TextHintingMode="Fixed" Height="120" UseLayoutRounding="False" BorderBrush="{x:Null}" VerticalContentAlignment="Bottom"/>
 
-    <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select Database" />
-  </Grid>
+        <TextBlock Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Select Database"/>
+    </Grid>
 </Window>
