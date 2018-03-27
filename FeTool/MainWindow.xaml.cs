@@ -31,30 +31,65 @@ namespace FeTool
 
         private void LogoutClick(object sender, RoutedEventArgs e)
         {
-            
             LoginScreen window = new LoginScreen();
             this.Close();
             window.ShowDialog();
         }
+
         private void HistoryClick(object sender, RoutedEventArgs e)
         {
-
             CommentHistory window = new CommentHistory();
             window.ShowDialog();
         }
+
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = @"C:\";
-            process.Start();
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".xls";
+            dlg.Filter = "Baseline Spreadsheet (*.xls)|*.xls";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                // Save to temporary variable
+                string baseline = dlg.FileName;
+                //TODO: Import baseline at baseline variable to database
+                string messageBoxText = "Imported " + baseline;
+                string caption = "Baseline Imported";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
         }
+
         private void ImportTestClick(object sender, RoutedEventArgs e)
         {
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = @"C:\";
-            process.Start();
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".xls";
+            dlg.Filter = "Test Spreadsheet (*.xls)|*.xls";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                // Save to temporary variable
+                string test = dlg.FileName;
+                //TODO: Import test at test variable to database
+                string messageBoxText = "Imported " + test;
+                string caption = "Test Results Imported";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
         }
     }
 }

@@ -23,8 +23,8 @@ namespace FeTool
     /// </summary>
     public partial class LoginScreen : Window
     {
-        ComboBox comboBox1 = new ComboBox();
-        TextBox PasswordBox = new TextBox();
+        private ComboBox comboBox1 = new ComboBox();
+        private TextBox PasswordBox = new TextBox();
         public char PasswordChar { get; set; }
 
         public LoginScreen()
@@ -38,15 +38,34 @@ namespace FeTool
             comboBox1.Background = SystemColors.MenuBrush;
             comboBox1.Items.Add("test1");
         }
-        private void ImportData (object sender, RoutedEventArgs e)
-        {
-            Process process = new Process();
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.FileName = @"C:\";
-            process.Start();
 
+        private void ImportData(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".db";
+            dlg.Filter = "SQLite DB (*.db)|*.db";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                // Save to global variable
+                string database = dlg.FileName;
+                //TODO: Populate username/password fields with DB data
+                // Verify the database connection/location
+                string messageBoxText = "Connected to " + database;
+                string caption = "New DB Connection";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
         }
-        private void LoginClick (object sender, RoutedEventArgs e)
+
+        private void LoginClick(object sender, RoutedEventArgs e)
         {
             MainWindow window = new MainWindow();
             this.Close();
