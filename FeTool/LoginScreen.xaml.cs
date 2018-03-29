@@ -18,9 +18,10 @@ using System.Windows.Shapes;
 
 namespace FeTool
 {
-    /// <summary>
-    /// Interaction logic for LoginScreen.xaml
-    /// </summary>
+    public static class globalvariables{
+            public static List<string> DatabaseLocations = new List<string>();
+    }
+
     public partial class LoginScreen : Window
     {
         private ComboBox comboBox1 = new ComboBox();
@@ -54,10 +55,16 @@ namespace FeTool
             if (result == true)
             {
                 // Save to global variable
-                string database = dlg.FileName;
+                globalvariables.DatabaseLocations.Add(dlg.FileName);
+
                 //TODO: Populate username/password fields with DB data
+
                 // Verify the database connection/location
-                string messageBoxText = "Connected to " + database;
+                string messageBoxText = "Connected to:";
+                foreach (string databaseitem in globalvariables.DatabaseLocations) {
+                    messageBoxText = messageBoxText + Environment.NewLine + databaseitem.Split('\\').Last();
+                }
+
                 string caption = "New DB Connection";
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;
