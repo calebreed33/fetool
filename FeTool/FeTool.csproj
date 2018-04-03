@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Database.cs" />
     <Compile Include="CommentHistory.xaml.cs">
       <DependentUpon>CommentHistory.xaml</DependentUpon>
     </Compile>
