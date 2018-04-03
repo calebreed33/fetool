@@ -47,8 +47,8 @@ namespace FeTool
 
             return DT;
         }
-        
-        /* Test code for querying database 
+        /*
+       // Test code for querying database 
         private static string sql = "select * from Users;";
         private static SQLiteCommand command = new SQLiteCommand(sql, sql_con);
         */
