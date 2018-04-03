@@ -1,15 +1,15 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS `Users` (
-	`userID`	integer,
+	`userID`	TEXT,
 	`permType`	varchar ( 255 ),
 	`userPassword`	TEXT,
 	PRIMARY KEY(`userID`),
 	FOREIGN KEY(`permType`) REFERENCES `Permissions`(`permType`)
 );
-INSERT INTO `Users` VALUES (100,'Administrator',NULL);
-INSERT INTO `Users` VALUES (200,'Database Manager',NULL);
-INSERT INTO `Users` VALUES (300,'Contributor',NULL);
-INSERT INTO `Users` VALUES (400,'Viewer',NULL);
+INSERT INTO `Users` VALUES ('user1','Administrator','password1');
+INSERT INTO `Users` VALUES ('user2','Database Manager','password2');
+INSERT INTO `Users` VALUES ('user3','Contributor','password3');
+INSERT INTO `Users` VALUES ('user4','Viewer','password4');
 CREATE TABLE IF NOT EXISTS `Transactions` (
 	`transactionID`	INTEGER,
 	`transactionDate`	TEXT,
