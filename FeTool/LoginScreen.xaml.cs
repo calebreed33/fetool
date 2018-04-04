@@ -44,14 +44,17 @@ namespace FeTool
             foreach (string database in globalvariables.DatabaseLocations){
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    //FeTool.globalvariables.SQLite_Connections.Add
                     globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select userID from Users";
+                    string sql = "select userID from Users;";
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-                    string results = command.ExecuteNonQuery().ToString();
-                    UsernameBox.Items.Add(results);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read()){
+                        UsernameBox.Items.Add(reader["userID"]);
+                    }
                 }
             }
         }
@@ -75,8 +78,6 @@ namespace FeTool
             {
                 // Save to global variable
                 globalvariables.DatabaseLocations.Add(dlg.FileName);
-
-                //TODO: Populate username/password fields with DB data
 
                 // Verify the database connection/location
                 string messageBoxText = "Connected to:";
@@ -103,18 +104,21 @@ namespace FeTool
 
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
-                    if(command.ExecuteNonQuery().ToString() != null){ //This line may not even be necessary
-                        if (command.ExecuteNonQuery().ToString() == PasswordBox.Password.ToString()){
-                            MainWindow window = new MainWindow();
-                            this.Close();
-                            window.ShowDialog();
-                        }
-                        else{
-                            string messageBoxText = "The password is incorrect.";
-                            string caption = "Try Again";
-                            MessageBoxButton button = MessageBoxButton.OK;
-                            MessageBoxImage icon = MessageBoxImage.Error;
-                            MessageBox.Show(messageBoxText, caption, button, icon);
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read()){
+                        if (reader["userPassword"] != null){ //This line may not even be necessary
+                            if (reader["userPassword"].ToString() == PasswordBox.Password.ToString()){
+                                MainWindow window = new MainWindow();
+                                this.Close();
+                                window.ShowDialog();
+                            }
+                            else{
+                                string messageBoxText = "The password is incorrect.";
+                                string caption = "Try Again";
+                                MessageBoxButton button = MessageBoxButton.OK;
+                                MessageBoxImage icon = MessageBoxImage.Error;
+                                MessageBox.Show(messageBoxText, caption, button, icon);
+                            }
                         }
                     }
                 }
