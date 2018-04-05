@@ -131,7 +131,23 @@
         </StackPanel.Resources>
         <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
               IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
-          <TextBlock TextWrapping="Wrap" Text="V-Key Details Text" Padding="8" Height="230" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="System Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
+                        <Label x:Name="systemnamelabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="182" Background="White" FontSize="10" />
+                        <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
+                        <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="0,90,0,0" VerticalAlignment="Top" Width="188"/>
+                        <Label Grid.Column="1" Content="V-Key:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
+                        <Label Grid.Column="1" x:Name="vkeylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="188" Background="White" FontSize="10" />
+                        <Label Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
+                        <Label Grid.Column="1" x:Name="categorylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="10,90,0,0" VerticalAlignment="Top" Width="40" Background="White" FontSize="10" />
+                        <Label Content="Discussion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,130,0,0" FontSize="12"/>
+                        <Label Grid.ColumnSpan="2" x:Name="discussionlabel" Content="" HorizontalAlignment="Left" Height="100" Margin="0,160,0,0" VerticalAlignment="Top" Width="350" Background="White" FontSize="10" />
+                    </Grid>
         </Expander>
         <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
               IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
