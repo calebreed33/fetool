@@ -55,6 +55,7 @@ namespace FeTool
                     while (reader.Read()){
                         UsernameBox.Items.Add(reader["userID"]);
                     }
+                    sqlite_connection.Close();
                 }
             }
         }
@@ -121,6 +122,7 @@ namespace FeTool
                             }
                         }
                     }
+                    sqlite_connection.Close();
                 }
             }
         }

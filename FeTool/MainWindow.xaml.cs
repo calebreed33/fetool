@@ -24,11 +24,12 @@ namespace FeTool
     /// </summary>
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
+
             StackPanel1.DataContext = new ExpanderListViewModel();
+            Generate_VKeys();
         }
 
         private void LogoutClick(object sender, RoutedEventArgs e)
@@ -58,7 +59,7 @@ namespace FeTool
 
             if (result == true)
             {
-                // Save to temporary variable
+                // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
@@ -93,8 +94,9 @@ namespace FeTool
                 MessageBox.Show(messageBoxText, caption, button, icon);
             }
         }
-        /*
-        private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
+
+        //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
+        private void Generate_VKeys()
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
@@ -112,9 +114,9 @@ namespace FeTool
                     {
                         v_keybox.Items.Add(reader["V_Key"]);
                     }
+                    sqlite_connection.Close();
                 }
             }
         }
-        */
     }
 }
