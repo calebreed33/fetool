@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace FeTool
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -91,5 +93,28 @@ namespace FeTool
                 MessageBox.Show(messageBoxText, caption, button, icon);
             }
         }
+        /*
+        private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
+        {
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
+                    sqlite_connection.Open();
+
+                    string sql = "select V_Key from ComplianceEntries;";
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        v_keybox.Items.Add(reader["V_Key"]);
+                    }
+                }
+            }
+        }
+        */
     }
 }
