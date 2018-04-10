@@ -15,17 +15,22 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SQLite;
+using System.IO;
+using System.Collections;
 
 namespace FeTool
 {
     public static class globalvariables{
             public static List<string> DatabaseLocations = new List<string>();
+            public static List<SQLiteConnection> SQLite_Connections = new List<SQLiteConnection>();
     }
 
     public partial class LoginScreen : Window
     {
         private ComboBox comboBox1 = new ComboBox();
-        private TextBox PasswordBox = new TextBox();
+        //private TextBox PasswordBox = new TextBox();
+        private PasswordBox LoginPasswordBox = new PasswordBox();
         public char PasswordChar { get; set; }
 
         public LoginScreen()
@@ -33,11 +38,29 @@ namespace FeTool
             InitializeComponent();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_DropDownOpened(object sender, EventArgs e)
         {
-            comboBox1.Name = "Combobox1";
-            comboBox1.Background = SystemColors.MenuBrush;
-            comboBox1.Items.Add("test1");
+            UsernameBox.Items.Clear();
+            foreach (string database in globalvariables.DatabaseLocations){
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
+                    sqlite_connection.Open();
+
+                    string sql = "select userID from Users;";
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read()){
+                        UsernameBox.Items.Add(reader["userID"]);
+                    }
+                    sqlite_connection.Close();
+                }
+            }
+        }
+
+        private void ComboBox_SelectionChanged (object sender, RoutedEventArgs e){
         }
 
         private void ImportData(object sender, RoutedEventArgs e)
@@ -57,8 +80,6 @@ namespace FeTool
                 // Save to global variable
                 globalvariables.DatabaseLocations.Add(dlg.FileName);
 
-                //TODO: Populate username/password fields with DB data
-
                 // Verify the database connection/location
                 string messageBoxText = "Connected to:";
                 foreach (string databaseitem in globalvariables.DatabaseLocations) {
@@ -74,9 +95,36 @@ namespace FeTool
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            this.Close();
-            window.ShowDialog();
+            foreach (string database in globalvariables.DatabaseLocations){
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
+                    sqlite_connection.Open();
+
+                    string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
+
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+
+                    SQLiteDataReader reader = command.ExecuteReader();
+                    while (reader.Read()){
+                        if (reader["userPassword"] != null){ //This line may not even be necessary
+                            if (reader["userPassword"].ToString() == PasswordBox.Password.ToString()){
+                                MainWindow window = new MainWindow();
+                                this.Close();
+                                window.ShowDialog();
+                            }
+                            else{
+                                string messageBoxText = "The password is incorrect.";
+                                string caption = "Try Again";
+                                MessageBoxButton button = MessageBoxButton.OK;
+                                MessageBoxImage icon = MessageBoxImage.Error;
+                                MessageBox.Show(messageBoxText, caption, button, icon);
+                            }
+                        }
+                    }
+                    sqlite_connection.Close();
+                }
+            }
         }
     }
 }

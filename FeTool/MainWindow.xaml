@@ -9,183 +9,171 @@
         mc:Ignorable="d"
         Title="FeToolv0.0" Height="700" Width="1000" Background="White">
 
-    <Window.Resources>
-        <Style  TargetType="{x:Type ListBoxItem}">
-            <Style.Triggers>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="#FFAEAEAE"></Setter>
-                </Trigger>
-                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                    <Setter Property="Background" Value="#FFE5E5E5"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
+  <Window.Resources>
+    <Style  TargetType="{x:Type ListBoxItem}">
+      <Style.Triggers>
+        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+          <Setter Property="Background" Value="#FFAEAEAE"></Setter>
+        </Trigger>
+        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+          <Setter Property="Background" Value="#FFE5E5E5"></Setter>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </Window.Resources>
 
-    <Grid Background="#FFE5E5E5">
+  <Grid Background="#FFE5E5E5">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="35*" />
-            <ColumnDefinition Width="65*" />
-        </Grid.ColumnDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="35*" />
+      <ColumnDefinition Width="65*" />
+    </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="35*"/>
-            <RowDefinition Height="60*"/>
-        </Grid.RowDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="20" />
+      <RowDefinition Height="35*" />
+      <RowDefinition Height="60*" />
+    </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="1" Background="#FFE5E5E5">
+    <Grid Grid.Column="0" Grid.Row="1" Background="#FFE5E5E5">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="50*" />
-            </Grid.RowDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="15*" />
+        <RowDefinition Height="15*" />
+        <RowDefinition Height="15*" />
+        <RowDefinition Height="50*" />
+      </Grid.RowDefinitions>
 
-            <Button Click="ImportBaselineClick" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Baseline" Background="#FFAEAEAE"></Button>
-            <Button Click="ImportTestClick" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Test" Background="#FFAEAEAE"></Button>
+      <Button Click="ImportBaselineClick" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Baseline" Background="#FFAEAEAE"></Button>
+      <Button Click="ImportTestClick" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Import Test" Background="#FFAEAEAE"></Button>
 
-            <ComboBox Grid.Row="1" VerticalContentAlignment="Center">
-                <ComboBoxItem IsSelected="True">Baseline #1</ComboBoxItem>
-                <ComboBoxItem>Baseline #2</ComboBoxItem>
-                <ComboBoxItem>Baseline #3</ComboBoxItem>
-            </ComboBox>
+      <ComboBox Grid.Row="1" VerticalContentAlignment="Center">
+        <ComboBoxItem IsSelected="True">Baseline #1</ComboBoxItem>
+        <ComboBoxItem>Baseline #2</ComboBoxItem>
+        <ComboBoxItem>Baseline #3</ComboBoxItem>
+      </ComboBox>
 
-            <ComboBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center">
-                <ComboBoxItem IsSelected="True">Test #1</ComboBoxItem>
-                <ComboBoxItem>Test #2</ComboBoxItem>
-                <ComboBoxItem>Test #3</ComboBoxItem>
-            </ComboBox>
+      <ComboBox Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center">
+        <ComboBoxItem IsSelected="True">Test #1</ComboBoxItem>
+        <ComboBoxItem>Test #2</ComboBoxItem>
+        <ComboBoxItem>Test #3</ComboBoxItem>
+      </ComboBox>
 
-            <Label Content="Filter Settings for V-Keys" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"/>
+      <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2" />
 
-            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="Search Bar Placeholder" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-
-        </Grid>
-
-        <Grid Grid.Row="2" Background="#FFE5E5E5">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="90*" />
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*" />
-                <ColumnDefinition Width="50*" />
-            </Grid.ColumnDefinitions>
-
-            <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
-                <ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
-                <ComboBoxItem>STIG 2</ComboBoxItem>
-                <ComboBoxItem>STIG 3</ComboBoxItem>
-                <ComboBoxItem>STIG 4</ComboBoxItem>
-                <ComboBoxItem>STIG 5</ComboBoxItem>
-                <ComboBoxItem>STIG 6</ComboBoxItem>
-                <ComboBoxItem>STIG 7</ComboBoxItem>
-                <ComboBoxItem>STIG 8</ComboBoxItem>
-                <ComboBoxItem>STIG 9</ComboBoxItem>
-                <ComboBoxItem>STIG 10</ComboBoxItem>
-            </ComboBox>
-
-            <ListBox Name="vkeylistbox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2">
-                <!-- ItemsSource="{Binding Path=DataCollection}" SelectedItem="{Binding Path=DetailData, Mode=TwoWay}" -->
-                <ListBoxItem>V-KEY #1</ListBoxItem>
-                <ListBoxItem>V-KEY #2</ListBoxItem>
-                <ListBoxItem>V-KEY #3</ListBoxItem>
-                <ListBoxItem>V-KEY #4</ListBoxItem>
-                <ListBoxItem>V-KEY #5</ListBoxItem>
-                <ListBoxItem>V-KEY #6</ListBoxItem>
-                <ListBoxItem>V-KEY #7</ListBoxItem>
-                <ListBoxItem>V-KEY #8</ListBoxItem>
-                <ListBoxItem>V-KEY #9</ListBoxItem>
-                <ListBoxItem>V-KEY #10</ListBoxItem>
-                <ListBoxItem>V-KEY #11</ListBoxItem>
-                <ListBoxItem>V-KEY #12</ListBoxItem>
-                <ListBoxItem>V-KEY #10</ListBoxItem>
-                <ListBoxItem>V-KEY #11</ListBoxItem>
-                <ListBoxItem>V-KEY #12</ListBoxItem>
-                <ListBoxItem>V-KEY #13</ListBoxItem>
-                <ListBoxItem>V-KEY #14</ListBoxItem>
-                <ListBoxItem>V-KEY #15</ListBoxItem>
-            </ListBox>
-
-        </Grid>
-
-        <!-- Command="Logout" -->
-            <Menu Background="#FFAEAEAE" Height="20" Grid.ColumnSpan="2">
-                <MenuItem Header="Home"></MenuItem>
-                <MenuItem Header="File">
-                    <MenuItem  Header="File Option 1"/>
-                    <MenuItem  Header="File Option 2"/>
-                    <MenuItem  Header="File Option 3"/>
-                </MenuItem>
-                <MenuItem Header="View">
-                    <MenuItem Header="View Option #1"/>
-                    <MenuItem Header="View Option #2"/>
-                    <MenuItem Header="View Option #3"/>
-                </MenuItem>
-                <MenuItem Header="Export"></MenuItem>
-                <MenuItem Header="Content"></MenuItem>
-                <MenuItem Header="Logout" Click="LogoutClick" ></MenuItem>
-            </Menu>
-
-        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="#FFE5E5E5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="90*" />
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="10*" />
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*" />
-                <ColumnDefinition Width="80*" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Name="StackPanel1" Grid.ColumnSpan="2">
-                <StackPanel.Resources>
-                    <converters:ExpanderToBooleanConverter x:Key="ExpanderToBooleanConverter" />
-                </StackPanel.Resources>
-                <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
-                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
-                    <TextBlock Name="vkey" TextWrapping="Wrap" Text="V-Key Details Text" Padding="8" Height="230"/>
-                </Expander>
-                <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
-                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
-                    <TextBlock Name="compliance" TextWrapping="Wrap" Text="Compliance Information Text" Padding="8" Height="230"/>
-                </Expander>
-                <Expander Header="Administrative Information" BorderThickness="2,2,2,2"
-                      IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
-                    <TextBlock Name="admininfo"  TextWrapping="Wrap" Text="Administrative Information Text" Padding="8" Height="230"/>
-                </Expander>
-            </StackPanel>
-            
-            <Button Content="Edit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFAEAEAE" Grid.Row="1" Grid.Column="0" />
-            
-            <Button Name="History" Click="HistoryClick" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
-            
-            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
-                <TextBox VerticalContentAlignment="Stretch"></TextBox>
-            </ScrollViewer>
-
-            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5"/>
-
-            <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" >
-                <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
-                <ComboBoxItem>Position #2</ComboBoxItem>
-                <ComboBoxItem>Position #3</ComboBoxItem>
-            </ComboBox>
-            
-        </Grid>
-
+      <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="Search Bar Placeholder" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
     </Grid>
+
+    <Grid Grid.Row="2" Background="#FFE5E5E5">
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="10*" />
+        <RowDefinition Height="90*" />
+      </Grid.RowDefinitions>
+
+      <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+        <ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
+        <ComboBoxItem>STIG 2</ComboBoxItem>
+        <ComboBoxItem>STIG 3</ComboBoxItem>
+        <ComboBoxItem>STIG 4</ComboBoxItem>
+        <ComboBoxItem>STIG 5</ComboBoxItem>
+        <ComboBoxItem>STIG 6</ComboBoxItem>
+        <ComboBoxItem>STIG 7</ComboBoxItem>
+        <ComboBoxItem>STIG 8</ComboBoxItem>
+        <ComboBoxItem>STIG 9</ComboBoxItem>
+        <ComboBoxItem>STIG 10</ComboBoxItem>
+      </ComboBox>
+
+      <!--List of V-Keys-->
+      <ListBox x:Name="v_keybox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
+    </Grid>
+
+    <!-- Command="Logout" -->
+    <Menu Background="#FFAEAEAE" Height="20" Grid.ColumnSpan="2">
+      <MenuItem Header="Home"></MenuItem>
+      <MenuItem Header="File">
+        <MenuItem  Header="File Option 1" />
+        <MenuItem  Header="File Option 2" />
+        <MenuItem  Header="File Option 3" />
+      </MenuItem>
+      <MenuItem Header="View">
+        <MenuItem Header="View Option #1" />
+        <MenuItem Header="View Option #2" />
+        <MenuItem Header="View Option #3" />
+      </MenuItem>
+      <MenuItem Header="Export"></MenuItem>
+      <MenuItem Header="Content"></MenuItem>
+      <MenuItem Header="Logout" Click="LogoutClick" ></MenuItem>
+    </Menu>
+
+    <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="#FFE5E5E5">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="90*" />
+        <RowDefinition Height="10*" />
+        <RowDefinition Height="10*" />
+        <RowDefinition Height="10*" />
+        <RowDefinition Height="10*" />
+      </Grid.RowDefinitions>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="20*" />
+        <ColumnDefinition Width="80*" />
+      </Grid.ColumnDefinitions>
+
+      <StackPanel Name="StackPanel1" Grid.ColumnSpan="2">
+        <StackPanel.Resources>
+          <converters:ExpanderToBooleanConverter x:Key="ExpanderToBooleanConverter" />
+        </StackPanel.Resources>
+        <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
+              IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="System Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
+                        <Label x:Name="systemnamelabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="182" Background="White" FontSize="10" />
+                        <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
+                        <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="0,90,0,0" VerticalAlignment="Top" Width="188"/>
+                        <Label Grid.Column="1" Content="V-Key:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
+                        <Label Grid.Column="1" x:Name="vkeylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="188" Background="White" FontSize="10" />
+                        <Label Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
+                        <Label Grid.Column="1" x:Name="categorylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="10,90,0,0" VerticalAlignment="Top" Width="40" Background="White" FontSize="10" />
+                        <Label Content="Discussion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,130,0,0" FontSize="12"/>
+                        <Label Grid.ColumnSpan="2" x:Name="discussionlabel" Content="" HorizontalAlignment="Left" Height="100" Margin="0,160,0,0" VerticalAlignment="Top" Width="350" Background="White" FontSize="10" />
+                    </Grid>
+        </Expander>
+        <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
+              IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
+          <TextBlock TextWrapping="Wrap" Text="Compliance Information Text" Padding="8" Height="230" />
+        </Expander>
+        <Expander Header="Administrative Information" BorderThickness="2,2,2,2"
+              IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
+          <TextBlock TextWrapping="Wrap" Text="Administrative Information Text" Padding="8" Height="230" />
+        </Expander>
+      </StackPanel>
+
+      <Button Content="Edit" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#FFAEAEAE" Grid.Row="1" Grid.Column="0" />
+
+      <Button Name="History" Click="HistoryClick" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
+
+      <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
+        <TextBox VerticalContentAlignment="Stretch"></TextBox>
+      </ScrollViewer>
+
+      <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
+
+      <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
+        <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
+        <ComboBoxItem>Position #2</ComboBoxItem>
+        <ComboBoxItem>Position #3</ComboBoxItem>
+      </ComboBox>
+    </Grid>
+  </Grid>
 </Window>
