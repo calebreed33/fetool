@@ -64,7 +64,7 @@
                 <ComboBoxItem>Test #3</ComboBoxItem>
             </ComboBox>
 
-            <Label Content="Filter" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"/>
+            <Label Content="Filter Settings for V-Keys" VerticalAlignment="Top" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"  Grid.Row="2"/>
 
             <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="Search Bar Placeholder" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
@@ -77,7 +77,12 @@
                 <RowDefinition Height="90*" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
                 <ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
                 <ComboBoxItem>STIG 2</ComboBoxItem>
                 <ComboBoxItem>STIG 3</ComboBoxItem>
@@ -90,7 +95,8 @@
                 <ComboBoxItem>STIG 10</ComboBoxItem>
             </ComboBox>
 
-            <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2">
+            <ListBox Name="vkeylistbox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2">
+                <!-- ItemsSource="{Binding Path=DataCollection}" SelectedItem="{Binding Path=DetailData, Mode=TwoWay}" -->
                 <ListBoxItem>V-KEY #1</ListBoxItem>
                 <ListBoxItem>V-KEY #2</ListBoxItem>
                 <ListBoxItem>V-KEY #3</ListBoxItem>
@@ -151,15 +157,15 @@
                 </StackPanel.Resources>
                 <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
-                    <TextBlock TextWrapping="Wrap" Text="V-Key Details Text" Padding="8" Height="230"/>
+                    <TextBlock Name="vkey" TextWrapping="Wrap" Text="V-Key Details Text" Padding="8" Height="230"/>
                 </Expander>
                 <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=2}">
-                    <TextBlock TextWrapping="Wrap" Text="Compliance Information Text" Padding="8" Height="230"/>
+                    <TextBlock Name="compliance" TextWrapping="Wrap" Text="Compliance Information Text" Padding="8" Height="230"/>
                 </Expander>
                 <Expander Header="Administrative Information" BorderThickness="2,2,2,2"
                       IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=3}">
-                    <TextBlock TextWrapping="Wrap" Text="Administrative Information Text" Padding="8" Height="230"/>
+                    <TextBlock Name="admininfo"  TextWrapping="Wrap" Text="Administrative Information Text" Padding="8" Height="230"/>
                 </Expander>
             </StackPanel>
             
