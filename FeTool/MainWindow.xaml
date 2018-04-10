@@ -90,7 +90,8 @@
       </ComboBox>
 
       <!--List of V-Keys-->
-      <ListBox x:Name="v_keybox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
+            <ListBox x:Name="v_keybox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" SelectionChanged="v_keybox_SelectionChanged">
+            </ListBox>
     </Grid>
 
     <!-- Command="Logout" -->
