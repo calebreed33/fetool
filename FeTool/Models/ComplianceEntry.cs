@@ -21,7 +21,7 @@ namespace FeTool.Models
             }
             set
             {
-                system_name = value;
+                system_name = value; 
                 NotifyPropertyChanged("System_name");
             }
         }
@@ -47,7 +47,7 @@ namespace FeTool.Models
             set
             {
                 pdi = value;
-                NotifyPropertyChanged("pdi");
+                NotifyPropertyChanged("Pdi");
             }
         }
 

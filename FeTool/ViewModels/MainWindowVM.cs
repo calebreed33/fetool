@@ -16,15 +16,23 @@ namespace FeTool.ViewModels
         public MainWindowVM()
         {
             this.ComplianceEntries = new ObservableCollection<ComplianceEntry>();
+            this.MasterCollections = new ObservableCollection<MasterCollection>();
             onLoad();
         }
 
         private ObservableCollection<ComplianceEntry> complianceEntries;
+        private ObservableCollection<MasterCollection> masterCollections;
 
         public ObservableCollection<ComplianceEntry> ComplianceEntries
         {
             get { return complianceEntries; }
             set { complianceEntries = value; }
+        }
+
+        public ObservableCollection<MasterCollection> MasterCollections
+        {
+            get { return masterCollections; }
+            set { masterCollections = value; }
         }
 
         private ComplianceEntry selectedV_Key;
@@ -47,7 +55,7 @@ namespace FeTool.ViewModels
                     globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select V_Key,Cat from ComplianceEntries;";
+                    string sql = "select System_Name,V_Key,Cat,Discussion from ComplianceEntries;";
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
                     SQLiteDataReader reader = command.ExecuteReader();
@@ -55,8 +63,10 @@ namespace FeTool.ViewModels
                     while (reader.Read())
                     {
                         ComplianceEntry complianceEntry = new ComplianceEntry();
+                        complianceEntry.System_name = (string)reader["System_Name"];
                         complianceEntry.V_key = (string) reader["V_Key"];
                         complianceEntry.Cat = (long)reader["Cat"];
+                        complianceEntry.Discussion = (string)reader["Discussion"];
                         this.ComplianceEntries.Add(complianceEntry);
                     }
                     sqlite_connection.Close();
