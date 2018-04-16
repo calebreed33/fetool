@@ -121,7 +121,7 @@ namespace FeTool
 
         private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            (this.DataContext as MainWindowVM).FilteredComplianceEntries.Refresh();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace FeTool.Models
 {
     class ComplianceEntry : INotifyPropertyChanged
     {
-        private string system_name, checklist, pdi, v_key, discussion, notes, recommendation, ia_controls, status, comments;
+        private string system_name, checklist, pdi, v_key, discussion, notes, recommendation, ia_controls, status, comments, stig_id;
         private long topic, cat, entryid;
 
         public string System_name
@@ -38,6 +38,19 @@ namespace FeTool.Models
                 NotifyPropertyChanged("Checklist");
             }
         }
+        public string Stig_ID
+        {
+            get
+            {
+                return stig_id;
+            }
+            set
+            {
+                stig_id = value;
+                NotifyPropertyChanged("Stig_ID");
+            }
+        }
+
         public string Pdi
         {
             get
