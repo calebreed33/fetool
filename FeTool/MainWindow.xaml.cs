@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Office.Interop.Excel;
 
 namespace FeTool
 {
@@ -59,6 +60,11 @@ namespace FeTool
 
             if (result == true)
             {
+                Excel.Application xlApp = new Excel.Application();
+                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
+                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                Excel.Range xlRange = xlWorksheet.UsedRange;
+
                 // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
                 //TODO: Import baseline at baseline variable to database

@@ -21,6 +21,7 @@ using System.Collections;
 
 namespace FeTool
 {
+    //TODO: These variables should later operate in the global:: namespace
     public static class globalvariables{
             public static List<string> DatabaseLocations = new List<string>();
             public static List<SQLiteConnection> SQLite_Connections = new List<SQLiteConnection>();
