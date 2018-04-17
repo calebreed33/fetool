@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Office.Interop.Excel;
 
 namespace FeTool
 {
@@ -60,13 +59,25 @@ namespace FeTool
 
             if (result == true)
             {
-                Excel.Application xlApp = new Excel.Application();
-                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
-                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-                Excel.Range xlRange = xlWorksheet.UsedRange;
-
                 // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
+
+                FileStream stream = File.Open(baseline, FileMode.Open, FileAccess.Read);
+                //Check filetype
+                if (Path.GetExtension(baseline).ToUpper() == ".XLS")
+                {
+                    //Reading from a binary Excel file ('97-2003 format; *.xls)
+                    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+                }
+                else
+                {
+                    //Reading from a OpenXml Excel file (2007 format; *.xlsx)
+                    excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                }
+                excelReader.IsFirstRowAsColumnNames = true;
+                DataSet result = excelReader.AsDataSet();
+
+                excelReader.Close();
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
                 string caption = "Baseline Imported";
@@ -83,7 +94,7 @@ namespace FeTool
 
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".xls";
-            dlg.Filter = "Test Spreadsheet (*.xls)|*.xls";
+            dlg.Filter = "Test Spreadsheet (*.xls)|*.xls;*xlsx";
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
@@ -92,7 +103,10 @@ namespace FeTool
             {
                 // Save to temporary variable
                 string test = dlg.FileName;
+
                 //TODO: Import test at test variable to database
+                //ExcelDataReader.
+
                 string messageBoxText = "Imported " + test;
                 string caption = "Test Results Imported";
                 MessageBoxButton button = MessageBoxButton.OK;
