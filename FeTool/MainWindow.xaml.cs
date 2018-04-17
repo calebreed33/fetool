@@ -28,7 +28,7 @@ namespace FeTool
         public MainWindow()
         {
             InitializeComponent();
-
+            this.DataContext = new MainWindowVM();
             StackPanel1.DataContext = new ExpanderListViewModel();
             Generate_VKeys();
         }
@@ -104,7 +104,7 @@ namespace FeTool
         //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
         private void Generate_VKeys()
         {
-            foreach (string database in globalvariables.DatabaseLocations)
+            /*foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
@@ -122,7 +122,12 @@ namespace FeTool
                     }
                     sqlite_connection.Close();
                 }
-            }
+            }*/
+        }
+
+        private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            (this.DataContext as MainWindowVM).FilteredComplianceEntries.Refresh();
         }
     }
 }

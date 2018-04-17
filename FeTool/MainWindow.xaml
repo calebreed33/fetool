@@ -9,20 +9,20 @@
         mc:Ignorable="d"
         Title="FeToolv0.0" Height="700" Width="1000" Background="White">
 
-  <Window.Resources>
-    <Style  TargetType="{x:Type ListBoxItem}">
-      <Style.Triggers>
-        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-          <Setter Property="Background" Value="#FFAEAEAE"></Setter>
-        </Trigger>
-        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-          <Setter Property="Background" Value="#FFE5E5E5"></Setter>
-        </Trigger>
-      </Style.Triggers>
-    </Style>
-  </Window.Resources>
+    <Window.Resources>
+        <Style  TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#FFAEAEAE"></Setter>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FFE5E5E5"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
-  <Grid Background="#FFE5E5E5">
+    <Grid Background="#FFE5E5E5">
 
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="35*" />
@@ -81,19 +81,18 @@
         <ColumnDefinition Width="50*" />
        </Grid.ColumnDefinitions>
 
-      <ComboBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
-                <ComboBoxItem IsSelected="True">System 1</ComboBoxItem>
-                <ComboBoxItem>System 2</ComboBoxItem>
+            <ComboBox Grid.Row="0" SelectionChanged="v_keybox_SelectionChanged" ItemsSource="{Binding System_names}" SelectedItem="{Binding SelectedSystem_Name}" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+                <!--<ComboBoxItem IsSelected="True">System 1</ComboBoxItem>
+                <ComboBoxItem>System 2</ComboBoxItem>-->
       </ComboBox>
-
-
-      <ComboBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
-        <ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
-        <ComboBoxItem>STIG 2</ComboBoxItem>
+ 
+            <ComboBox Grid.Row="0" SelectionChanged="v_keybox_SelectionChanged" ItemsSource="{Binding Stig_IDs}" SelectedItem="{Binding SelectedStig_ID}" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center">
+        <!--<ComboBoxItem IsSelected="True">STIG 1</ComboBoxItem>
+        <ComboBoxItem>STIG 2</ComboBoxItem>-->
       </ComboBox>
 
       <!--List of V-Keys-->
-      <ListBox x:Name="v_keybox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
+            <ListBox x:Name="v_keybox" DisplayMemberPath="V_key" SelectedItem="{Binding SelectedV_Key}" ItemsSource="{Binding CompliancEntries}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
     </Grid>
 
     <!-- Command="Logout" -->
@@ -134,22 +133,23 @@
         </StackPanel.Resources>
         <Expander Header="V-Key Details" BorderThickness="2,2,2,2"
               IsExpanded="{Binding SelectedExpander, Mode=TwoWay, Converter={StaticResource ExpanderToBooleanConverter}, ConverterParameter=1}">
-                    <Grid>
+                    <Grid x:Name="vkeydetailgrid" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
                             <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+                        
                         <Label Content="System Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
-                        <Label x:Name="systemnamelabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="182" Background="White" FontSize="10" />
+                        <TextBox x:Name="systemnamelabel" Text="{Binding Path=SelectedV_Key.System_name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="182" Background="White" FontSize="10"/>
                         <Label Content="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
                         <ComboBox x:Name="comboBoxStatus" HorizontalAlignment="Left" Margin="0,90,0,0" VerticalAlignment="Top" Width="188"/>
                         <Label Grid.Column="1" Content="V-Key:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-3,0,0" FontSize="12"/>
-                        <Label Grid.Column="1" x:Name="vkeylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="188" Background="White" FontSize="10" />
+                        <TextBox Grid.Column="1" x:Name="vkeylabel" Text="{Binding Path=SelectedV_Key.V_key, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="25" Margin="0,30,0,0" VerticalAlignment="Top" Width="188" Background="White" FontSize="10" />
                         <Label Grid.Column="1" Content="Category:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="12"/>
-                        <Label Grid.Column="1" x:Name="categorylabel" Content="" HorizontalAlignment="Left" Height="25" Margin="10,90,0,0" VerticalAlignment="Top" Width="40" Background="White" FontSize="10" />
+                        <TextBox Grid.Column="1" x:Name="categorylabel" Text="{Binding Path=SelectedV_Key.Cat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="25" Margin="10,90,0,0" VerticalAlignment="Top" Width="40" Background="White" FontSize="10" />
                         <Label Content="Discussion:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,130,0,0" FontSize="12"/>
-                        <Label Grid.ColumnSpan="2" x:Name="discussionlabel" Content="" HorizontalAlignment="Left" Height="100" Margin="0,160,0,0" VerticalAlignment="Top" Width="350" Background="White" FontSize="10" />
+                        <TextBox Grid.ColumnSpan="2" x:Name="discussionlabel" Text="{Binding Path=SelectedV_Key.Discussion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="100" Margin="0,160,0,0" VerticalAlignment="Top" Width="350" Background="White" FontSize="10" />
                     </Grid>
         </Expander>
         <Expander Header="Compliance Information" BorderThickness="2,2,2,2"
