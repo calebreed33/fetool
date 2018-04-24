@@ -125,7 +125,7 @@
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="20*" />
         <ColumnDefinition Width="80*" />
-      </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
 
       <StackPanel Name="StackPanel1" Grid.ColumnSpan="2">
         <StackPanel.Resources>
@@ -166,11 +166,13 @@
 
       <Button Name="History" Click="HistoryClick" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFAEAEAE" Grid.Row="2" Grid.Column="0" />
 
-      <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
-        <TextBox VerticalContentAlignment="Stretch"></TextBox>
-      </ScrollViewer>
+            <Button Content="Save" Click="SaveComment" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFAEAEAE" Grid.Column="0" Grid.Row="3"/>
 
-      <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
+      <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
+        <TextBox Name="userComment" VerticalContentAlignment="Stretch"></TextBox>
+      </ScrollViewer>
+           
+            <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
 
       <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
         <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>

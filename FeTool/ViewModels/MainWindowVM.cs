@@ -32,6 +32,7 @@ namespace FeTool.ViewModels
 
         public ICollectionView FilteredComplianceEntries
         {
+
             get { if (filteredcollectionview == null)
                 {
                     filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries);
@@ -52,12 +53,12 @@ namespace FeTool.ViewModels
             get { return system_names; }
             set { system_names = value; }
         }
+
         public ObservableCollection<string> Stig_IDs
         {
             get { return stig_ids; }
             set { stig_ids = value; }
         }
-
 
         private ComplianceEntry selectedV_Key;
         private string selectedsystem_name;
