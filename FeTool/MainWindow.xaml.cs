@@ -16,6 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Collections;
+
 //using Microsoft.Office.Interop.Excel;
 
 namespace FeTool
@@ -47,34 +50,25 @@ namespace FeTool
         }
         private void SaveComment(object sender, RoutedEventArgs e)
         {
-            using (SQLiteConnection sqlite_connection = new SQLiteConnection("connectionString"))
+
+            foreach (string database in globalvariables.DatabaseLocations)
             {
-                globalvariables.SQLite_Connections.Add(sqlite_connection);
-
-                try
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    SQLiteCommand cmd = new SQLiteCommand();
 
-                    cmd.Connection = sqlite_connection;
-                    cmd.Parameters.Add(new SQLiteParameter("@userComment", userComment.Text));
-
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    int i = cmd.ExecuteNonQuery();
-                    if (i == 1)
-                    {
-                        MessageBox.Show("Comment Save Successfully");
+                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
 
-                    }
+                    InsertSQL.Connection = sqlite_connection;
+                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
+                    InsertSQL.ExecuteNonQuery();
+                    sqlite_connection.Close();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+
             }
-
         }
-
 
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
