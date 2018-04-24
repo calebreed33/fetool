@@ -67,17 +67,35 @@ namespace FeTool
                 if (Path.GetExtension(baseline).ToUpper() == ".XLS")
                 {
                     //Reading from a binary Excel file ('97-2003 format; *.xls)
-                    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+                    IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(stream);
                 }
                 else
                 {
                     //Reading from a OpenXml Excel file (2007 format; *.xlsx)
-                    excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
                 }
                 excelReader.IsFirstRowAsColumnNames = true;
-                DataSet result = excelReader.AsDataSet();
+
+                //Data set configuration
+                var conf = new ExcelDataSetConfiguration
+                {
+                    ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                    {
+                        UseHeaderRow = true
+                    }
+                };
+                DataSet result = excelReader.AsDataSet(conf);
+
+                until();
+                foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                {
+                    string sql = "INSERT INTO ComplianceEntries VALUES ()";
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+                    command.ExecuteNonQuery();
+                }
 
                 excelReader.Close();
+
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
                 string caption = "Baseline Imported";
