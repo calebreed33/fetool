@@ -16,7 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-//using Microsoft.Office.Interop.Excel;
+using System.IO;
+using System.Collections;
 
 namespace FeTool
 {
@@ -47,34 +48,22 @@ namespace FeTool
         }
         private void SaveComment(object sender, RoutedEventArgs e)
         {
-            using (SQLiteConnection sqlite_connection = new SQLiteConnection("connectionString"))
+            foreach (string database in globalvariables.DatabaseLocations)
             {
-                globalvariables.SQLite_Connections.Add(sqlite_connection);
-
-                try
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    SQLiteCommand cmd = new SQLiteCommand();
-
-                    cmd.Connection = sqlite_connection;
-                    cmd.Parameters.Add(new SQLiteParameter("@userComment", userComment.Text));
-
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    int i = cmd.ExecuteNonQuery();
-                    if (i == 1)
-                    {
-                        MessageBox.Show("Comment Save Successfully");
+                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
 
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    InsertSQL.Connection = sqlite_connection;
+                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
+                    InsertSQL.ExecuteNonQuery();
+                    sqlite_connection.Close();
                 }
             }
-
         }
-
 
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
@@ -90,13 +79,48 @@ namespace FeTool
 
             if (result == true)
             {
-                //Excel.Application xlApp = new Excel.Application();
-                //Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
-                //Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-                //Excel.Range xlRange = xlWorksheet.UsedRange;
+                Excel.Application xlApp = new Excel.Application();
+                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
+                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                Excel.Range xlRange = xlWorksheet.UsedRange;
 
                 // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
+
+                FileStream stream = File.Open(baseline, FileMode.Open, FileAccess.Read);
+                //Check filetype
+                if (Path.GetExtension(baseline).ToUpper() == ".XLS")
+                {
+                    //Reading from a binary Excel file ('97-2003 format; *.xls)
+                    IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(stream);
+                }
+                else
+                {
+                    //Reading from a OpenXml Excel file (2007 format; *.xlsx)
+                    reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                }
+                excelReader.IsFirstRowAsColumnNames = true;
+
+                //Data set configuration
+                var conf = new ExcelDataSetConfiguration
+                {
+                    ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                    {
+                        UseHeaderRow = true
+                    }
+                };
+                DataSet result = excelReader.AsDataSet(conf);
+
+                until();
+                foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                {
+                    string sql = "INSERT INTO ComplianceEntries VALUES ()";
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+                    command.ExecuteNonQuery();
+                }
+
+                excelReader.Close();
+
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
                 string caption = "Baseline Imported";
@@ -113,7 +137,7 @@ namespace FeTool
 
             // Set filter for file extension and default file extension
             dlg.DefaultExt = ".xls";
-            dlg.Filter = "Test Spreadsheet (*.xls)|*.xls";
+            dlg.Filter = "Test Spreadsheet (*.xls)|*.xls;*xlsx";
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
@@ -122,7 +146,10 @@ namespace FeTool
             {
                 // Save to temporary variable
                 string test = dlg.FileName;
+
                 //TODO: Import test at test variable to database
+                //ExcelDataReader.
+
                 string messageBoxText = "Imported " + test;
                 string caption = "Test Results Imported";
                 MessageBoxButton button = MessageBoxButton.OK;
@@ -159,7 +186,5 @@ namespace FeTool
         {
             (this.DataContext as MainWindowVM).FilteredComplianceEntries.Refresh();
         }
-
-       
     }
 }
