@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Collections;
 
 namespace FeTool
 {
@@ -44,6 +46,24 @@ namespace FeTool
             CommentHistory window = new CommentHistory();
             window.ShowDialog();
         }
+        private void SaveComment(object sender, RoutedEventArgs e)
+        {
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    globalvariables.SQLite_Connections.Add(sqlite_connection);
+                    sqlite_connection.Open();
+
+                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
+
+                    InsertSQL.Connection = sqlite_connection;
+                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
+                    InsertSQL.ExecuteNonQuery();
+                    sqlite_connection.Close();
+                }
+            }
+        }
 
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
@@ -59,6 +79,11 @@ namespace FeTool
 
             if (result == true)
             {
+                Excel.Application xlApp = new Excel.Application();
+                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
+                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
+                Excel.Range xlRange = xlWorksheet.UsedRange;
+
                 // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
 
