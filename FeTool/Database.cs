@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Data; 
 using System.Data.SQLite;
 using System.Windows.Controls;
+using System.Windows; 
+
+
 
 namespace FeTool
 {
@@ -47,11 +50,25 @@ namespace FeTool
 
             return DT;
         }
+
         /*
        // Test code for querying database 
-        private static string sql = "select * from Users;";
-        private static SQLiteCommand command = new SQLiteCommand(sql, sql_con);
+        private static string sqlSelect = "select * from Users;";
+        private static SQLiteCommand command = new SQLiteCommand(sqlSelect, sql_con);
+        MessageBox.Show("This is a test"); 
         */
+
+        static void main()
+        {
+            //string sqlSelect = "select * from Users;";
+            string sqlCreate = "create table testingTable (test1 text, test2 text);";
+            //SQLiteCommand command = new SQLiteCommand(sqlSelect, sql_con);
+            SQLiteCommand testCmd = new SQLiteCommand(sqlCreate, sql_con); 
+            //MessageBox.Show(sqlSelect, "Output"); 
+            
+
+        }
+        
         
     }
 
