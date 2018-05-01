@@ -79,11 +79,6 @@ namespace FeTool
 
             if (result == true)
             {
-                Excel.Application xlApp = new Excel.Application();
-                Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(dlg.FileName);
-                Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
-                Excel.Range xlRange = xlWorksheet.UsedRange;
-
                 // Save to temporary variable. May need to readdress due to not being global variable. Unlikely.
                 string baseline = dlg.FileName;
 
@@ -109,16 +104,33 @@ namespace FeTool
                         UseHeaderRow = true
                     }
                 };
-                DataSet result = excelReader.AsDataSet(conf);
+                DataSet dataSet = excelReader.AsDataSet(conf);
+                DataTable dataTable = dataSet.tables[0];
 
-                until();
-                foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                int i = 0;
+                while (dataTable.Rows[0][0] <= dataTable.GetLength(1))
                 {
-                    string sql = "INSERT INTO ComplianceEntries VALUES ()";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-                    command.ExecuteNonQuery();
-                }
+                    string systemName = dataTable.Rows[i][0];
+                    string checklist = dataTable.Rows[i][1];
+                    string topic = dataTable.Rows[i][2];
+                    string pdi = dataTable.Rows[i][3];
+                    string vKey = dataTable.Rows[i][4];
+                    string cat = dataTable.Rows[i][5];
+                    string discussion = dataTable.Rows[i][6];
+                    string notes = dataTable.Rows[i][0];
+                    string recommendation = dataTable.Rows[i][8];
+                    string iaControl = dataTable.Rows[i][9];
+                    string status = dataTable.Rows[i][10];
+                    i++;
+                    foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                    {
+                        SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                        command.ExecuteNonQuery();
 
+                        command = SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                        command.ExecuteNonQuery();
+                    }
+                }
                 excelReader.Close();
 
                 //TODO: Import baseline at baseline variable to database
