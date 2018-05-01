@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.Linq;
@@ -18,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
+using ExcelDataReader;
 
 namespace FeTool
 {
@@ -46,6 +48,7 @@ namespace FeTool
             CommentHistory window = new CommentHistory();
             window.ShowDialog();
         }
+
         private void SaveComment(object sender, RoutedEventArgs e)
         {
             foreach (string database in globalvariables.DatabaseLocations)
@@ -68,11 +71,12 @@ namespace FeTool
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xls";
-            dlg.Filter = "Baseline Spreadsheet (*.xls)|*.xls";
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                // Set filter for file extension and default file extension
+                DefaultExt = ".xls",
+                Filter = "Baseline Spreadsheet (*.xls)|*.xls"
+            };
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
@@ -83,55 +87,49 @@ namespace FeTool
                 string baseline = dlg.FileName;
 
                 FileStream stream = File.Open(baseline, FileMode.Open, FileAccess.Read);
+
                 //Check filetype
-                if (Path.GetExtension(baseline).ToUpper() == ".XLS")
-                {
-                    //Reading from a binary Excel file ('97-2003 format; *.xls)
-                    IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(stream);
-                }
-                else
-                {
-                    //Reading from a OpenXml Excel file (2007 format; *.xlsx)
-                    reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-                }
-                excelReader.IsFirstRowAsColumnNames = true;
+                IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream); //Supports all filetypes as of 3.1-ish
 
                 //Data set configuration
-                var conf = new ExcelDataSetConfiguration
+                DataSet dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
                 {
-                    ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                    // Gets or sets a callback to obtain configuration options for a DataTable.
+                    ConfigureDataTable = (tableReader) => new ExcelDataTableConfiguration()
                     {
-                        UseHeaderRow = true
+                        // Gets or sets a value indicating whether to use a row from the
+                        // data as column names.
+                        UseHeaderRow = false,
                     }
-                };
-                DataSet dataSet = excelReader.AsDataSet(conf);
-                DataTable dataTable = dataSet.tables[0];
+                });
+
+                DataTable dataTable = dataSet.Tables[0];
 
                 int i = 0;
                 while (dataTable.Rows[0][0] <= dataTable.GetLength(1))
                 {
-                    string systemName = dataTable.Rows[i][0];
-                    string checklist = dataTable.Rows[i][1];
-                    string topic = dataTable.Rows[i][2];
-                    string pdi = dataTable.Rows[i][3];
-                    string vKey = dataTable.Rows[i][4];
-                    string cat = dataTable.Rows[i][5];
-                    string discussion = dataTable.Rows[i][6];
-                    string notes = dataTable.Rows[i][0];
-                    string recommendation = dataTable.Rows[i][8];
-                    string iaControl = dataTable.Rows[i][9];
-                    string status = dataTable.Rows[i][10];
+                    string systemName = dataTable.Rows[i][0].ToString();
+                    string checklist = dataTable.Rows[i][1].ToString();
+                    string topic = dataTable.Rows[i][2].ToString();
+                    string pdi = dataTable.Rows[i][3].ToString();
+                    string vKey = dataTable.Rows[i][4].ToString();
+                    string cat = dataTable.Rows[i][5].ToString();
+                    string discussion = dataTable.Rows[i][6].ToString();
+                    string notes = dataTable.Rows[i][0].ToString();
+                    string recommendation = dataTable.Rows[i][8].ToString();
+                    string iaControl = dataTable.Rows[i][9].ToString();
+                    string status = dataTable.Rows[i][10].ToString();
                     i++;
                     foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
                     {
                         SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
                         command.ExecuteNonQuery();
 
-                        command = SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                        command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
                         command.ExecuteNonQuery();
                     }
                 }
-                excelReader.Close();
+                reader.Close();
 
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
