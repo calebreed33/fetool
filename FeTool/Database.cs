@@ -8,7 +8,10 @@ using System.Data.SQLite;
 using System.Windows.Controls;
 using System.Windows; 
 
-
+/*
+Although this class is currently unused, it has potential to be used later
+for connecting and interacting with the database 
+*/
 
 namespace FeTool
 {
@@ -51,23 +54,9 @@ namespace FeTool
             return DT;
         }
 
-        /*
-       // Test code for querying database 
-        private static string sqlSelect = "select * from Users;";
-        private static SQLiteCommand command = new SQLiteCommand(sqlSelect, sql_con);
-        MessageBox.Show("This is a test"); 
-        */
+        
 
-        static void main()
-        {
-            //string sqlSelect = "select * from Users;";
-            string sqlCreate = "create table testingTable (test1 text, test2 text);";
-            //SQLiteCommand command = new SQLiteCommand(sqlSelect, sql_con);
-            SQLiteCommand testCmd = new SQLiteCommand(sqlCreate, sql_con); 
-            //MessageBox.Show(sqlSelect, "Output"); 
-            
-
-        }
+        
         
         
     }

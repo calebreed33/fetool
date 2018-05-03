@@ -101,12 +101,13 @@ namespace FeTool
                 {
                     globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
-
+                    //try
                     string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
 
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
                     SQLiteDataReader reader = command.ExecuteReader();
+                    //catch
                     while (reader.Read()){
                         if (reader["userPassword"] != null){ //This line may not even be necessary
                             if (reader["userPassword"].ToString() == PasswordBox.Password.ToString()){

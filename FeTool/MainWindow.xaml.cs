@@ -49,7 +49,7 @@ namespace FeTool
             window.ShowDialog();
         }
 
-        private void SaveComment(object sender, RoutedEventArgs e)
+       private void SaveComment(object sender, RoutedEventArgs e)
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
@@ -67,7 +67,7 @@ namespace FeTool
                 }
             }
         }
-
+        
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
@@ -99,7 +99,7 @@ namespace FeTool
                     {
                         // Gets or sets a value indicating whether to use a row from the
                         // data as column names.
-                        UseHeaderRow = false,
+                        UseHeaderRow = false;
                     }
                 });
 
