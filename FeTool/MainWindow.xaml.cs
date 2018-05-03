@@ -35,7 +35,7 @@ namespace FeTool
             StackPanel1.DataContext = new ExpanderListViewModel();
             Generate_VKeys();
         }
-
+       
         private void LogoutClick(object sender, RoutedEventArgs e)
         {
             LoginScreen window = new LoginScreen();
@@ -49,25 +49,36 @@ namespace FeTool
             window.ShowDialog();
         }
 
-       private void SaveComment(object sender, RoutedEventArgs e)
+        private void SaveComment(object sender, RoutedEventArgs e)
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
-                    sqlite_connection.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
+                    {
+                        sqlite_connection.Open();
+                        cmd.CommandText = "INSERT INTO Comments (commentText) VALUES (@commentText)";
+                        cmd.Parameters.AddWithValue("commentText", commentText.Text);
+                        cmd.ExecuteNonQuery();
 
-                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
+                        cmd.CommandText = "SELECT * FROM Comments";
 
-                    InsertSQL.Connection = sqlite_connection;
-                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
-                    InsertSQL.ExecuteNonQuery();
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string comment = reader["commentText"].ToString();
+                                commentText.Text += comment + '\n';
+                            }
+                            reader.Close();
+                        }
+                        commentText.Clear();
+                    }
                     sqlite_connection.Close();
                 }
             }
         }
-        
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
@@ -99,7 +110,7 @@ namespace FeTool
                     {
                         // Gets or sets a value indicating whether to use a row from the
                         // data as column names.
-                        UseHeaderRow = false;
+                        UseHeaderRow = false,
                     }
                 });
 
