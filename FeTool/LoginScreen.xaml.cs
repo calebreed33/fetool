@@ -107,14 +107,17 @@ namespace FeTool
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
                     SQLiteDataReader reader = command.ExecuteReader();
-                    while (reader.Read()){
-                        if (reader["userPassword"] != null){ //This line may not even be necessary
+                    while (reader.Read())
+                    {
+                        if (reader["userPassword"] != null)
+                        { //This line may not even be necessary
                             if (reader["userPassword"].ToString() == PasswordBox.Password.ToString()){
                                 MainWindow window = new MainWindow();
                                 this.Close();
                                 window.ShowDialog();
                             }
-                            else{
+                            else
+                            {
                                 string messageBoxText = "The password is incorrect.";
                                 string caption = "Try Again";
                                 MessageBoxButton button = MessageBoxButton.OK;

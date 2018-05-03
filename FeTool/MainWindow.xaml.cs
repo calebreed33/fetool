@@ -35,7 +35,7 @@ namespace FeTool
             StackPanel1.DataContext = new ExpanderListViewModel();
             Generate_VKeys();
         }
-
+       
         private void LogoutClick(object sender, RoutedEventArgs e)
         {
             LoginScreen window = new LoginScreen();
@@ -55,19 +55,30 @@ namespace FeTool
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
-                    sqlite_connection.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
+                    {
+                        sqlite_connection.Open();
+                        cmd.CommandText = "INSERT INTO Comments (commentText) VALUES (@commentText)";
+                        cmd.Parameters.AddWithValue("commentText", commentText.Text);
+                        cmd.ExecuteNonQuery();
 
-                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
+                        cmd.CommandText = "SELECT * FROM Comments";
 
-                    InsertSQL.Connection = sqlite_connection;
-                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
-                    InsertSQL.ExecuteNonQuery();
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string comment = reader["commentText"].ToString();
+                                commentText.Text += comment + '\n';
+                            }
+                            reader.Close();
+                        }
+                        commentText.Clear();
+                    }
                     sqlite_connection.Close();
                 }
             }
         }
-
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
@@ -91,7 +102,7 @@ namespace FeTool
                 //Check filetype
                 IExcelDataReader reader = ExcelReaderFactory.CreateReader(stream); //Supports all filetypes as of 3.1-ish
 
-                //Data set (whole workbook) configuration
+                //Data set configuration
                 DataSet dataSet = reader.AsDataSet(new ExcelDataSetConfiguration()
                 {
                     // Gets or sets a callback to obtain configuration options for a DataTable.
@@ -103,15 +114,10 @@ namespace FeTool
                     }
                 });
 
-                //First worksheet
                 DataTable dataTable = dataSet.Tables[0];
 
-                //This skips the header line
-                int i = 1;
-
-                //while (dataTable.Rows[0][0] <= dataTable.GetLength(1)) <--Remove if code works
-                //While there are unread rows in dataTable, import data from each row
-                while (i <= dataTable.Select().Length)
+                int i = 0;
+                while (dataTable.Rows[0][0] <= dataTable.GetLength(1))
                 {
                     string systemName = dataTable.Rows[i][0].ToString();
                     string checklist = dataTable.Rows[i][1].ToString();
@@ -124,7 +130,7 @@ namespace FeTool
                     string recommendation = dataTable.Rows[i][8].ToString();
                     string iaControl = dataTable.Rows[i][9].ToString();
                     string status = dataTable.Rows[i][10].ToString();
-
+                    i++;
                     foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
                     {
                         SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
@@ -133,7 +139,6 @@ namespace FeTool
                         command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
                         command.ExecuteNonQuery();
                     }
-                    i++;
                 }
                 reader.Close();
 
