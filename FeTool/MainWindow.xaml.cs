@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Collections;
+using ExcelDataReader;
 
 namespace FeTool
 {
@@ -84,7 +85,7 @@ namespace FeTool
 
                 FileStream stream = File.Open(baseline, FileMode.Open, FileAccess.Read);
                 //Check filetype
-                if (Path.GetExtension(baseline).ToUpper() == ".XLS")
+                if (System.IO.Path.GetExtension(baseline).ToUpper() == ".XLS")
                 {
                     //Reading from a binary Excel file ('97-2003 format; *.xls)
                     IExcelDataReader reader = ExcelReaderFactory.CreateBinaryReader(stream);
@@ -92,46 +93,46 @@ namespace FeTool
                 else
                 {
                     //Reading from a OpenXml Excel file (2007 format; *.xlsx)
-                    reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                    //reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
                 }
-                excelReader.IsFirstRowAsColumnNames = true;
+               // excelReader.IsFirstRowAsColumnNames = true;
 
                 //Data set configuration
-                var conf = new ExcelDataSetConfiguration
-                {
-                    ConfigureDataTable = _ => new ExcelDataTableConfiguration
-                    {
-                        UseHeaderRow = true
-                    }
-                };
-                DataSet dataSet = excelReader.AsDataSet(conf);
-                DataTable dataTable = dataSet.tables[0];
+                //var conf = new ExcelDataSetConfiguration
+                //{
+                //    ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                //    {
+                //        UseHeaderRow = true
+                //    }
+                //};
+                //DataSet dataSet = excelReader.AsDataSet(conf);
+                //DataTable dataTable = dataSet.tables[0];
 
-                int i = 0;
-                while (dataTable.Rows[0][0] <= dataTable.GetLength(1))
-                {
-                    string systemName = dataTable.Rows[i][0];
-                    string checklist = dataTable.Rows[i][1];
-                    string topic = dataTable.Rows[i][2];
-                    string pdi = dataTable.Rows[i][3];
-                    string vKey = dataTable.Rows[i][4];
-                    string cat = dataTable.Rows[i][5];
-                    string discussion = dataTable.Rows[i][6];
-                    string notes = dataTable.Rows[i][0];
-                    string recommendation = dataTable.Rows[i][8];
-                    string iaControl = dataTable.Rows[i][9];
-                    string status = dataTable.Rows[i][10];
-                    i++;
-                    foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
-                    {
-                        SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
-                        command.ExecuteNonQuery();
+                //int i = 0;
+                //while (dataTable.Rows[0][0] <= dataTable.GetLength(1))
+                //{
+                //    string systemName = dataTable.Rows[i][0];
+                //    string checklist = dataTable.Rows[i][1];
+                //    string topic = dataTable.Rows[i][2];
+                //    string pdi = dataTable.Rows[i][3];
+                //    string vKey = dataTable.Rows[i][4];
+                //    string cat = dataTable.Rows[i][5];
+                //    string discussion = dataTable.Rows[i][6];
+                //    string notes = dataTable.Rows[i][0];
+                //    string recommendation = dataTable.Rows[i][8];
+                //    string iaControl = dataTable.Rows[i][9];
+                //    string status = dataTable.Rows[i][10];
+                //    i++;
+                //    foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                //    {
+                //        SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                //        command.ExecuteNonQuery();
 
-                        command = SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                excelReader.Close();
+                //        command = SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                //        command.ExecuteNonQuery();
+                //    }
+                //}
+               // excelReader.Close();
 
                 //TODO: Import baseline at baseline variable to database
                 string messageBoxText = "Imported " + baseline;
@@ -173,7 +174,7 @@ namespace FeTool
         //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
         private void Generate_VKeys()
         {
-            /*foreach (string database in globalvariables.DatabaseLocations)
+            foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
@@ -191,7 +192,7 @@ namespace FeTool
                     }
                     sqlite_connection.Close();
                 }
-            }*/
+            }
         }
 
         private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
