@@ -98,9 +98,8 @@ namespace FeTool.ViewModels
         private bool V_KeyFilter(object item)
         {
             ComplianceEntry v_key = item as ComplianceEntry;
-            return SelectedSystem_Name == v_key.System_name;
 
-            //return ((SelectedStig_ID == v_key.Stig_ID) && (SelectedSystem_Name == v_key.System_name));
+            return ((SelectedStig_ID == v_key.Stig_ID) && (SelectedSystem_Name == v_key.System_name));
         }
 
         private void onLoad()
@@ -124,6 +123,7 @@ namespace FeTool.ViewModels
                         if (!System_names.Contains((string)reader["System_Name"])) System_names.Add((string)reader["System_Name"]);
                         if (!Stig_IDs.Contains((string)reader["Stig_ID"])) Stig_IDs.Add((string)reader["Stig_ID"]);
                         complianceEntry.V_key = (string) reader["V_Key"];
+                        complianceEntry.Stig_ID = (string)reader["Stig_ID"];
                         complianceEntry.Cat = (long)reader["Cat"];
                         complianceEntry.Discussion = (string)reader["Discussion"];
                         this.ComplianceEntries.Add(complianceEntry);

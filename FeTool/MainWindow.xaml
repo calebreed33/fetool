@@ -92,7 +92,7 @@
       </ComboBox>
 
       <!--List of V-Keys-->
-            <ListBox x:Name="v_keybox" DisplayMemberPath="V_key" SelectedItem="{Binding SelectedV_Key}" ItemsSource="{Binding CompliancEntries}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
+            <ListBox x:Name="v_keybox" DisplayMemberPath="V_key" SelectedItem="{Binding SelectedV_Key}" ItemsSource="{Binding FilteredComplianceEntries}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" AlternationCount="2" />
     </Grid>
 
     <!-- Command="Logout" -->
