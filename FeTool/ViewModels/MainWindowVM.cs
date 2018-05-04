@@ -35,8 +35,10 @@ namespace FeTool.ViewModels
 
             get { if (filteredcollectionview == null)
                 {
-                    filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries);
+                    filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries) as ICollectionView;
                     filteredcollectionview.Filter = V_KeyFilter;
+                    //filteredcollectionview.GroupDescriptions.Add(new PropertyGroupDescription("V_Key"));
+                    //filteredcollectionview.SortDescriptions.Add(new SortDescription("V_Key", ListSortDirection.Ascending));
                 }
                 return filteredcollectionview;
             }   
@@ -97,6 +99,7 @@ namespace FeTool.ViewModels
         {
             ComplianceEntry v_key = item as ComplianceEntry;
             return SelectedSystem_Name == v_key.System_name;
+
             //return ((SelectedStig_ID == v_key.Stig_ID) && (SelectedSystem_Name == v_key.System_name));
         }
 
