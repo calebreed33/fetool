@@ -169,7 +169,7 @@
             <Button Content="Save" Click="SaveComment" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFAEAEAE" Grid.Column="0" Grid.Row="3"/>
 
       <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFDCD5D5" Grid.Row="1" Grid.Column="1" Grid.RowSpan="3">
-        <TextBox Name="userComment" VerticalContentAlignment="Stretch"></TextBox>
+        <TextBox Name="commentText" VerticalContentAlignment="Stretch"></TextBox>
       </ScrollViewer>
            
             <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
