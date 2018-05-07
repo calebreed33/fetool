@@ -122,24 +122,27 @@ namespace FeTool.ViewModels
                     sqlite_connection.Open();
 
                     string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-
-                    SQLiteDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
-                        ComplianceEntry complianceEntry = new ComplianceEntry();
-                        complianceEntry.System_name = (string)reader["System_Name"];
-                        if (!System_names.Contains((string)reader["System_Name"])) System_names.Add((string)reader["System_Name"]);
-                        if (!Stig_IDs.Contains((string)reader["Stig_ID"])) Stig_IDs.Add((string)reader["Stig_ID"]);
-                        complianceEntry.V_key = (string) reader["V_Key"];
-                        complianceEntry.Stig_ID = (string)reader["Stig_ID"];
-                        complianceEntry.Cat = (long)reader["Cat"];
-                        complianceEntry.Discussion = (string)reader["Discussion"];
-                        this.ComplianceEntries.Add(complianceEntry);
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ComplianceEntry complianceEntry = new ComplianceEntry();
+                                complianceEntry.System_name = reader["System_Name"] as string ?? "";
+                                if (!System_names.Contains(reader["System_Name"] as string)) System_names.Add(reader["System_Name"] as string);
+                                if (!Stig_IDs.Contains((string)reader["Stig_ID"])) Stig_IDs.Add((string)reader["Stig_ID"]);
+                                complianceEntry.V_key = (string)reader["V_Key"];
+                                complianceEntry.Stig_ID = (string)reader["Stig_ID"];
+                                complianceEntry.Cat = (long)reader["Cat"];
+                                complianceEntry.Discussion = (string)reader["Discussion"];
+                                this.ComplianceEntries.Add(complianceEntry);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
                     }
-                    reader.Close();
-                    sqlite_connection.Close();
                 }
             }
         }

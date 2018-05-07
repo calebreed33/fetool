@@ -49,15 +49,21 @@ namespace FeTool
                     sqlite_connection.Open();
 
                     string sql = "select userID from Users;";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                UsernameBox.Items.Add(reader["userID"]);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
 
-                    SQLiteDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read()){
-                        UsernameBox.Items.Add(reader["userID"]);
                     }
-                    reader.Close();
-                    sqlite_connection.Close();
+
                 }
             }
         }
@@ -100,33 +106,39 @@ namespace FeTool
             foreach (string database in globalvariables.DatabaseLocations){
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    
                     sqlite_connection.Open();
                     //try
                     string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
-
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-
-                    SQLiteDataReader reader = command.ExecuteReader();
-                    //catch
-                    while (reader.Read()){
-                        if (reader["userPassword"] != null){ //This line may not even be necessary
-                            if (reader["userPassword"].ToString() == PasswordBox.Password.ToString()){
-                                MainWindow window = new MainWindow();
-                                this.Close();
-                                window.ShowDialog();
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            //catch
+                            while (reader.Read())
+                            {
+                                if (reader["userPassword"] != null)
+                                { //This line may not even be necessary
+                                    if (reader["userPassword"].ToString() == PasswordBox.Password.ToString())
+                                    {
+                                        MainWindow window = new MainWindow();
+                                        this.Close();
+                                        window.ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        string messageBoxText = "The password is incorrect.";
+                                        string caption = "Try Again";
+                                        MessageBoxButton button = MessageBoxButton.OK;
+                                        MessageBoxImage icon = MessageBoxImage.Error;
+                                        MessageBox.Show(messageBoxText, caption, button, icon);
+                                    }
+                                }
                             }
-                            else{
-                                string messageBoxText = "The password is incorrect.";
-                                string caption = "Try Again";
-                                MessageBoxButton button = MessageBoxButton.OK;
-                                MessageBoxImage icon = MessageBoxImage.Error;
-                                MessageBox.Show(messageBoxText, caption, button, icon);
-                            }
+                            reader.Close();
                         }
+                        sqlite_connection.Close();
+                        command.Dispose();
                     }
-                    reader.Close();
-                    sqlite_connection.Close();
                 }
             }
         }

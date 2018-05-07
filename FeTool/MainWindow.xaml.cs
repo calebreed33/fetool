@@ -53,15 +53,16 @@ namespace FeTool
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
+                SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    
+
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
                     {
                         
                         sqlite_connection.Open();
 
-                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null); INSERT INTO CommentHistory (commentText, commentID) VALUES (@commentText, Null)";
+                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null)";
 
                         cmd.Parameters.AddWithValue("commentText", commentText.Text);
                         cmd.Parameters.AddWithValue("commentID", " ");
@@ -83,6 +84,7 @@ namespace FeTool
                         commentText.Clear();
                     }
                     sqlite_connection.Close();
+                   
                 }
             }
         }
@@ -158,6 +160,7 @@ namespace FeTool
                             command.ExecuteNonQuery();
 
                             sqlite_connection.Close();
+                            command.Dispose();
                         }
                     }
                     i++;
@@ -211,16 +214,20 @@ namespace FeTool
                     sqlite_connection.Open();
 
                     string sql = "select permType from Permissions";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-
-                    SQLiteDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
-                        usercombobox.Items.Add(reader["permType"]);
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                usercombobox.Items.Add(reader["permType"]);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }   
                     }
-                    reader.Close();
-                    sqlite_connection.Close();
+
                 }
             }
         }
