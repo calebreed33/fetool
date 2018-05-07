@@ -33,7 +33,7 @@ namespace FeTool
             InitializeComponent();
             this.DataContext = new MainWindowVM();
             StackPanel1.DataContext = new ExpanderListViewModel();
-            Generate_VKeys();
+            Generate_Users();
         }
 
         private void LogoutClick(object sender, RoutedEventArgs e)
@@ -53,12 +53,14 @@ namespace FeTool
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
+                SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
                     {
                         sqlite_connection.Open();
-                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null); INSERT INTO CommentHistory (commentText, commentID) VALUES (@commentText, Null)";
+
+                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null)";
 
                         cmd.Parameters.AddWithValue("commentText", commentText.Text);
                         cmd.Parameters.AddWithValue("commentID", " ");
@@ -142,7 +144,7 @@ namespace FeTool
                     string dtNow = DateTime.Now;
                     int dateTime = dtNow.Year * 10000000000 + dtNow.Month * 100000000 + dtNow.Day * 1000000 + dtNow.Hour * 10000 + dtNow.Minute * 100 + dtNow.Second;
 
-                    foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                    foreach (string database in globalvariables.DatabaseLocations)
                     {
 //Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
 /*
@@ -241,32 +243,39 @@ namespace FeTool
         }
 
         //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
-        private void Generate_VKeys()
+        private void Generate_Users()
         {
-            /*foreach (string database in globalvariables.DatabaseLocations)
+            foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select V_Key from ComplianceEntries;";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-
-                    SQLiteDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    string sql = "select permType from Permissions";
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
-                        v_keybox.Items.Add(reader["V_Key"]);
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                usercombobox.Items.Add(reader["permType"]);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
                     }
-                    sqlite_connection.Close();
                 }
-            }*/
+            }
         }
 
         private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             (this.DataContext as MainWindowVM).FilteredComplianceEntries.Refresh();
+        }
+
+        private void user_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }
