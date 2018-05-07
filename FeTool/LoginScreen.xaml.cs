@@ -25,6 +25,7 @@ namespace FeTool
     public static class globalvariables{
             public static List<string> DatabaseLocations = new List<string>();
             public static List<SQLiteConnection> SQLite_Connections = new List<SQLiteConnection>();
+            public static string SessionUser = new string();
     }
 
     public partial class LoginScreen : Window
@@ -114,6 +115,7 @@ namespace FeTool
                                 MainWindow window = new MainWindow();
                                 this.Close();
                                 window.ShowDialog();
+                                globalvariables.SessionUser = UsernameBox.SelectedItem;
                             }
                             else{
                                 string messageBoxText = "The password is incorrect.";

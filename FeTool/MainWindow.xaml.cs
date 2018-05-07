@@ -139,13 +139,64 @@ namespace FeTool
                     string recommendation = dataTable.Rows[i][8].ToString();
                     string iaControl = dataTable.Rows[i][9].ToString();
                     string status = dataTable.Rows[i][10].ToString();
+                    string dtNow = DateTime.Now;
+                    int dateTime = dtNow.Year * 10000000000 + dtNow.Month * 100000000 + dtNow.Day * 1000000 + dtNow.Hour * 10000 + dtNow.Minute * 100 + dtNow.Second;
 
                     foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
                     {
-                        SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+//Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
+/*
+                        //if SysName not in DB.Systems, add it
+                        command = new SQLiteCommand("Select System_ID FROM Systems WHERE System_Name=" + systemName + ";", connection);
+                        SQLiteDataReader tempreader = command.ExecuteReader();
+                        if (tempreader.Read() == false)
+                        {
+                            command = new SQLiteCommand("INSERT INTO Systems VALUES (NULL," + systemName + ");", connection);
+                            command.ExecuteNonQuery();
+                            tempreader = command.ExecuteReader();
+                        }
+                        tempreader.Read();
+                        int sysID = (int)tempreader["System_Name"];
+
+                        //if SysName not in DB.Stigs, add it
+                        command = new SQLiteCommand("Select System_ID FROM STIGs WHERE Stig_Name=" + checklist + ";", connection);
+                        tempreader = command.ExecuteReader();
+                        if (tempreader.Read() == false)
+                        {
+                            command = new SQLiteCommand("INSERT INTO STIGs VALUES (NULL," + checklist + ");", connection);
+                            command.ExecuteNonQuery();
+                        }
+                        tempreader.Read();
+                        int stigID = (int)tempreader["Stig_ID"];
+
+                        //if V-Key not in DB.VKeys, add it
+                        command = new SQLiteCommand("SELECT COUNT(VKey_ID) FROM VKeys WHERE VKey_ID=" + vKey + ";", connection);
+                        tempreader = command.ExecuteReader();
+                        if (tempreader.Read() == false)
+                        {
+                            command = new SQLiteCommand("INSERT INTO VKeys VALUES ("+ vKey +");", connection);
+                            command.ExecuteNonQuery();
+                        }
+                        tempreader.Read();
+                        int stigID = (int)tempreader["Stig_ID"];
+*/
+                        //Add to Transactions
+                        SQLiteCommand command = new SQLiteCommand("INSERT INTO Transactions(transactionDateTime, userID)" +
+                            "VALUES (" + dateTime + ", " + globalvariables.SessionUser +")", connection);
+                        command.ExecuteNonQuery();
+                        int transactionID = connection.LastInsertRowId;
+
+                        //Add to DataSets
+                        command = new SQLiteCommand("INSERT INTO DataSets(dataSetType,transactionID)" +
+                            "VALUES (" + "'Baseline', " + transactionID + ")", connection);
                         command.ExecuteNonQuery();
 
-                        command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
+                        //Add to ComplianceEntries
+                        command = new SQLiteCommand("INSERT INTO ComplianceEntries(System_ID,Topic,PDI,V_Key," +
+                            "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, comments, Stig_ID)" +
+                            "VALUES (" + sysID + ", " + topic + ", " + pdi + ", " + vKey + ", " + cat + ", " +
+                            discussion + ", " + notes + ", " + recommendation + ", " + iaControl + ", " + status +
+                            + ")", connection);
                         command.ExecuteNonQuery();
                     }
                     i++;
