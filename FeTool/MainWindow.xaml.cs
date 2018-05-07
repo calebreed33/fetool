@@ -48,23 +48,26 @@ namespace FeTool
             CommentHistory window = new CommentHistory();
             window.ShowDialog();
         }
-
+        
         private void SaveComment(object sender, RoutedEventArgs e)
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
+                    
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
                     {
+                        
                         sqlite_connection.Open();
+
                         cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null); INSERT INTO CommentHistory (commentText, commentID) VALUES (@commentText, Null)";
 
                         cmd.Parameters.AddWithValue("commentText", commentText.Text);
                         cmd.Parameters.AddWithValue("commentID", " ");
 
                         cmd.ExecuteNonQuery();
-
+                       
                         cmd.CommandText = "SELECT * FROM Comments";
 
                         using (SQLiteDataReader reader = cmd.ExecuteReader())
@@ -76,6 +79,7 @@ namespace FeTool
                             }
                             reader.Close();
                         }
+
                         commentText.Clear();
                     }
                     sqlite_connection.Close();
@@ -116,6 +120,7 @@ namespace FeTool
                         // data as column names.
                         UseHeaderRow = false,
                     }
+                    
                 });
 
                 //First worksheet
@@ -127,26 +132,33 @@ namespace FeTool
                 //while (dataTable.Rows[0][0] <= dataTable.GetLength(1)) <--Remove if code works
                 //While there are unread rows in dataTable, import data from each row
                 while (i <= dataTable.Select().Length)
-                {
+               {
                     string systemName = dataTable.Rows[i][0].ToString();
                     string checklist = dataTable.Rows[i][1].ToString();
-                    string topic = dataTable.Rows[i][2].ToString();
+                   string topic = dataTable.Rows[i][2].ToString();
                     string pdi = dataTable.Rows[i][3].ToString();
                     string vKey = dataTable.Rows[i][4].ToString();
-                    string cat = dataTable.Rows[i][5].ToString();
+                   string cat = dataTable.Rows[i][5].ToString();
                     string discussion = dataTable.Rows[i][6].ToString();
                     string notes = dataTable.Rows[i][0].ToString();
                     string recommendation = dataTable.Rows[i][8].ToString();
                     string iaControl = dataTable.Rows[i][9].ToString();
                     string status = dataTable.Rows[i][10].ToString();
 
-                    foreach (SQLiteConnection connection in globalvariables.SQLite_Connections)
+                    foreach (string database in globalvariables.DatabaseLocations)
                     {
-                        SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
-                        command.ExecuteNonQuery();
+                        using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                        {
+                            sqlite_connection.Open();
 
-                        command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", connection);
-                        command.ExecuteNonQuery();
+                            SQLiteCommand command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", sqlite_connection);
+                            command.ExecuteNonQuery();
+
+                            command = new SQLiteCommand("INSERT INTO ComplianceEntries VALUES ()", sqlite_connection);
+                            command.ExecuteNonQuery();
+
+                            sqlite_connection.Close();
+                        }
                     }
                     i++;
                 }
@@ -196,7 +208,6 @@ namespace FeTool
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
                     string sql = "select permType from Permissions";
@@ -208,6 +219,7 @@ namespace FeTool
                     {
                         usercombobox.Items.Add(reader["permType"]);
                     }
+                    reader.Close();
                     sqlite_connection.Close();
                 }
             }

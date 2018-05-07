@@ -119,7 +119,6 @@ namespace FeTool.ViewModels
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
                     string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
@@ -139,6 +138,7 @@ namespace FeTool.ViewModels
                         complianceEntry.Discussion = (string)reader["Discussion"];
                         this.ComplianceEntries.Add(complianceEntry);
                     }
+                    reader.Close();
                     sqlite_connection.Close();
                 }
             }
