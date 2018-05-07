@@ -146,60 +146,65 @@ namespace FeTool
 
                     foreach (string database in globalvariables.DatabaseLocations)
                     {
-//Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
-/*
-                        //if SysName not in DB.Systems, add it
-                        command = new SQLiteCommand("Select System_ID FROM Systems WHERE System_Name=" + systemName + ";", connection);
-                        SQLiteDataReader tempreader = command.ExecuteReader();
-                        if (tempreader.Read() == false)
-                        {
-                            command = new SQLiteCommand("INSERT INTO Systems VALUES (NULL," + systemName + ");", connection);
-                            command.ExecuteNonQuery();
-                            tempreader = command.ExecuteReader();
-                        }
-                        tempreader.Read();
-                        int sysID = (int)tempreader["System_Name"];
+                        //Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
+                        /*
+                                                //if SysName not in DB.Systems, add it
+                                                command = new SQLiteCommand("Select System_ID FROM Systems WHERE System_Name=" + systemName + ";", connection);
+                                                SQLiteDataReader tempreader = command.ExecuteReader();
+                                                if (tempreader.Read() == false)
+                                                {
+                                                    command = new SQLiteCommand("INSERT INTO Systems VALUES (NULL," + systemName + ");", connection);
+                                                    command.ExecuteNonQuery();
+                                                    tempreader = command.ExecuteReader();
+                                                }
+                                                tempreader.Read();
+                                                int sysID = (int)tempreader["System_Name"];
 
-                        //if SysName not in DB.Stigs, add it
-                        command = new SQLiteCommand("Select System_ID FROM STIGs WHERE Stig_Name=" + checklist + ";", connection);
-                        tempreader = command.ExecuteReader();
-                        if (tempreader.Read() == false)
-                        {
-                            command = new SQLiteCommand("INSERT INTO STIGs VALUES (NULL," + checklist + ");", connection);
-                            command.ExecuteNonQuery();
-                        }
-                        tempreader.Read();
-                        int stigID = (int)tempreader["Stig_ID"];
+                                                //if SysName not in DB.Stigs, add it
+                                                command = new SQLiteCommand("Select System_ID FROM STIGs WHERE Stig_Name=" + checklist + ";", connection);
+                                                tempreader = command.ExecuteReader();
+                                                if (tempreader.Read() == false)
+                                                {
+                                                    command = new SQLiteCommand("INSERT INTO STIGs VALUES (NULL," + checklist + ");", connection);
+                                                    command.ExecuteNonQuery();
+                                                }
+                                                tempreader.Read();
+                                                int stigID = (int)tempreader["Stig_ID"];
 
-                        //if V-Key not in DB.VKeys, add it
-                        command = new SQLiteCommand("SELECT COUNT(VKey_ID) FROM VKeys WHERE VKey_ID=" + vKey + ";", connection);
-                        tempreader = command.ExecuteReader();
-                        if (tempreader.Read() == false)
-                        {
-                            command = new SQLiteCommand("INSERT INTO VKeys VALUES ("+ vKey +");", connection);
-                            command.ExecuteNonQuery();
-                        }
-                        tempreader.Read();
-                        int stigID = (int)tempreader["Stig_ID"];
-*/
+                                                //if V-Key not in DB.VKeys, add it
+                                                command = new SQLiteCommand("SELECT COUNT(VKey_ID) FROM VKeys WHERE VKey_ID=" + vKey + ";", connection);
+                                                tempreader = command.ExecuteReader();
+                                                if (tempreader.Read() == false)
+                                                {
+                                                    command = new SQLiteCommand("INSERT INTO VKeys VALUES ("+ vKey +");", connection);
+                                                    command.ExecuteNonQuery();
+                                                }
+                                                tempreader.Read();
+                                                int stigID = (int)tempreader["Stig_ID"];
+                        */
                         //Add to Transactions
-                        SQLiteCommand command = new SQLiteCommand("INSERT INTO Transactions(transactionDateTime, userID)" +
-                            "VALUES (" + dateTime + ", " + globalvariables.SessionUser +")", connection);
-                        command.ExecuteNonQuery();
-                        int transactionID = connection.LastInsertRowId;
+                        using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                        {
+                            sqlite_connection.Open();
+                            SQLiteCommand command = new SQLiteCommand("INSERT INTO Transactions(transactionDateTime, userID)" +
+                                "VALUES (" + dateTime + ", " + globalvariables.SessionUser + ")", sqlite_connection);
+                            command.ExecuteNonQuery();
+                            int transactionID = connection.LastInsertRowId;
 
-                        //Add to DataSets
-                        command = new SQLiteCommand("INSERT INTO DataSets(dataSetType,transactionID)" +
-                            "VALUES (" + "'Baseline', " + transactionID + ")", connection);
-                        command.ExecuteNonQuery();
+                            //Add to DataSets
+                            command = new SQLiteCommand("INSERT INTO DataSets(dataSetType,transactionID)" +
+                                "VALUES (" + "'Baseline', " + transactionID + ")", sqlite_connection);
+                            command.ExecuteNonQuery();
 
-                        //Add to ComplianceEntries
-                        command = new SQLiteCommand("INSERT INTO ComplianceEntries(System_ID,Topic,PDI,V_Key," +
-                            "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, comments, Stig_ID)" +
-                            "VALUES (" + sysID + ", " + topic + ", " + pdi + ", " + vKey + ", " + cat + ", " +
-                            discussion + ", " + notes + ", " + recommendation + ", " + iaControl + ", " + status +
-                            + ")", connection);
-                        command.ExecuteNonQuery();
+                            //Add to ComplianceEntries
+                            command = new SQLiteCommand("INSERT INTO ComplianceEntries(System_ID,Topic,PDI,V_Key," +
+                                "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, comments, Stig_ID)" +
+                                "VALUES (" + systemName + ", " + topic + ", " + pdi + ", " + vKey + ", " + cat + ", " +
+                                discussion + ", " + notes + ", " + recommendation + ", " + iaControl + ", " + status +
+                                ")", sqlite_connection);
+                            command.ExecuteNonQuery();
+                            command.Dispose();
+                        }
                     }
                     i++;
                 }
