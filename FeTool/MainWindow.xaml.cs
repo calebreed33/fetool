@@ -202,6 +202,7 @@ namespace FeTool
                                 discussion + ", " + notes + ", " + recommendation + ", " + iaControl + ", " + status +
                                 ")", connection);
                             command.ExecuteNonQuery();
+                            command.Dispose();
                         }
                     }
                     i++;
