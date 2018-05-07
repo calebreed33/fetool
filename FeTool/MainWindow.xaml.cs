@@ -55,14 +55,29 @@ namespace FeTool
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
-                    sqlite_connection.Open();
+                    using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
+                    {
+                        sqlite_connection.Open();
+                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null); INSERT INTO CommentHistory (commentText, commentID) VALUES (@commentText, Null)";
 
-                    SQLiteCommand InsertSQL = new SQLiteCommand("INSERT INTO Comments (commentText) VALUES ('" + this.userComment.Text + "')", sqlite_connection);
+                        cmd.Parameters.AddWithValue("commentText", commentText.Text);
+                        cmd.Parameters.AddWithValue("commentID", " ");
 
-                    InsertSQL.Connection = sqlite_connection;
-                    InsertSQL.Parameters.Add(new SQLiteParameter("@commentText", ""));
-                    InsertSQL.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
+
+                        cmd.CommandText = "SELECT * FROM Comments";
+
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string comment = reader["commentText"].ToString();
+                                commentText.Text += comment + '\n';
+                            }
+                            reader.Close();
+                        }
+                        commentText.Clear();
+                    }
                     sqlite_connection.Close();
                 }
             }
