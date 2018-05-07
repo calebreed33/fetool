@@ -37,8 +37,6 @@ namespace FeTool.ViewModels
                 {
                     filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries) as ICollectionView;
                     filteredcollectionview.Filter = V_KeyFilter;
-                    //filteredcollectionview.GroupDescriptions.Add(new PropertyGroupDescription("V_Key"));
-                    //filteredcollectionview.SortDescriptions.Add(new SortDescription("V_Key", ListSortDirection.Ascending));
                 }
                 return filteredcollectionview;
             }   
@@ -65,6 +63,7 @@ namespace FeTool.ViewModels
         private ComplianceEntry selectedV_Key;
         private string selectedsystem_name;
         private string selectedstig_id;
+        private string selecteduser;
 
         public ComplianceEntry SelectedV_Key
         {
@@ -84,6 +83,7 @@ namespace FeTool.ViewModels
             }
 
         }
+
         public string SelectedStig_ID
         {
             get { return selectedstig_id; }
@@ -91,6 +91,17 @@ namespace FeTool.ViewModels
             {
                 selectedstig_id = value;
                 NotifyPropertyChanged("SelectedStig_ID");
+            }
+
+        }
+
+        public string SelectedUser
+        {
+            get { return selecteduser; }
+            set
+            {
+                selecteduser = value;
+                NotifyPropertyChanged("SelectedUser");
             }
 
         }
@@ -108,27 +119,30 @@ namespace FeTool.ViewModels
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries;";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
-
-                    SQLiteDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
-                        ComplianceEntry complianceEntry = new ComplianceEntry();
-                        complianceEntry.System_name = (string)reader["System_Name"];
-                        if (!System_names.Contains((string)reader["System_Name"])) System_names.Add((string)reader["System_Name"]);
-                        if (!Stig_IDs.Contains((string)reader["Stig_ID"])) Stig_IDs.Add((string)reader["Stig_ID"]);
-                        complianceEntry.V_key = (string) reader["V_Key"];
-                        complianceEntry.Stig_ID = (string)reader["Stig_ID"];
-                        complianceEntry.Cat = (long)reader["Cat"];
-                        complianceEntry.Discussion = (string)reader["Discussion"];
-                        this.ComplianceEntries.Add(complianceEntry);
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                ComplianceEntry complianceEntry = new ComplianceEntry();
+                                complianceEntry.System_name = reader["System_Name"] as string ?? "";
+                                if (!System_names.Contains(reader["System_Name"] as string)) System_names.Add(reader["System_Name"] as string);
+                                if (!Stig_IDs.Contains((string)reader["Stig_ID"])) Stig_IDs.Add((string)reader["Stig_ID"]);
+                                complianceEntry.V_key = (string)reader["V_Key"];
+                                complianceEntry.Stig_ID = (string)reader["Stig_ID"];
+                                complianceEntry.Cat = (long)reader["Cat"];
+                                complianceEntry.Discussion = (string)reader["Discussion"];
+                                this.ComplianceEntries.Add(complianceEntry);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
                     }
-                    sqlite_connection.Close();
                 }
             }
         }
