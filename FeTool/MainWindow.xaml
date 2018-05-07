@@ -174,11 +174,9 @@
            
             <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
 
-      <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center">
-        <ComboBoxItem IsSelected="True">Project Manager</ComboBoxItem>
-        <ComboBoxItem>Position #2</ComboBoxItem>
-        <ComboBoxItem>Position #3</ComboBoxItem>
-      </ComboBox>
+            <ComboBox x:Name="usercombobox" Grid.Row="4" Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="user_SelectionChanged" 
+                        ItemsSource="{Binding Perm_Type}" SelectedItem="{Binding SelectedUser}" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+            </ComboBox>
     </Grid>
   </Grid>
 </Window>

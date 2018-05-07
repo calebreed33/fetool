@@ -33,7 +33,7 @@ namespace FeTool
             InitializeComponent();
             this.DataContext = new MainWindowVM();
             StackPanel1.DataContext = new ExpanderListViewModel();
-            Generate_VKeys();
+            Generate_Users();
         }
 
         private void LogoutClick(object sender, RoutedEventArgs e)
@@ -175,32 +175,37 @@ namespace FeTool
         }
 
         //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
-        private void Generate_VKeys()
+        private void Generate_Users()
         {
-            /*foreach (string database in globalvariables.DatabaseLocations)
+            foreach (string database in globalvariables.DatabaseLocations)
             {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select V_Key from ComplianceEntries;";
+                    string sql = "select permType from Permissions";
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
                     SQLiteDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        v_keybox.Items.Add(reader["V_Key"]);
+                        usercombobox.Items.Add(reader["permType"]);
                     }
                     sqlite_connection.Close();
                 }
-            }*/
+            }
         }
 
         private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             (this.DataContext as MainWindowVM).FilteredComplianceEntries.Refresh();
+        }
+
+        private void user_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

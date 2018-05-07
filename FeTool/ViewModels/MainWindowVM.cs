@@ -37,8 +37,6 @@ namespace FeTool.ViewModels
                 {
                     filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries) as ICollectionView;
                     filteredcollectionview.Filter = V_KeyFilter;
-                    //filteredcollectionview.GroupDescriptions.Add(new PropertyGroupDescription("V_Key"));
-                    //filteredcollectionview.SortDescriptions.Add(new SortDescription("V_Key", ListSortDirection.Ascending));
                 }
                 return filteredcollectionview;
             }   
@@ -65,6 +63,7 @@ namespace FeTool.ViewModels
         private ComplianceEntry selectedV_Key;
         private string selectedsystem_name;
         private string selectedstig_id;
+        private string selecteduser;
 
         public ComplianceEntry SelectedV_Key
         {
@@ -84,6 +83,7 @@ namespace FeTool.ViewModels
             }
 
         }
+
         public string SelectedStig_ID
         {
             get { return selectedstig_id; }
@@ -91,6 +91,17 @@ namespace FeTool.ViewModels
             {
                 selectedstig_id = value;
                 NotifyPropertyChanged("SelectedStig_ID");
+            }
+
+        }
+
+        public string SelectedUser
+        {
+            get { return selecteduser; }
+            set
+            {
+                selecteduser = value;
+                NotifyPropertyChanged("SelectedUser");
             }
 
         }
@@ -111,7 +122,7 @@ namespace FeTool.ViewModels
                     globalvariables.SQLite_Connections.Add(sqlite_connection);
                     sqlite_connection.Open();
 
-                    string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries;";
+                    string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection);
 
                     SQLiteDataReader reader = command.ExecuteReader();
