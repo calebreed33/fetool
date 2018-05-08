@@ -22,27 +22,24 @@ namespace FeTool.ViewModels
             onLoad();
             if (System_names.Count > 0) SelectedSystem_Name = System_names.ElementAt(0);
             if (Stig_IDs.Count > 0) SelectedStig_ID = Stig_IDs.ElementAt(0);
-            
         }
 
         private ObservableCollection<ComplianceEntry> complianceEntries;
         private ObservableCollection<string> system_names;
         private ObservableCollection<string> stig_ids;
-        
+
         private ICollectionView filteredcollectionview;
 
         public ICollectionView FilteredComplianceEntries
         {
-
             get { if (filteredcollectionview == null)
                 {
                     filteredcollectionview = CollectionViewSource.GetDefaultView(ComplianceEntries) as ICollectionView;
                     filteredcollectionview.Filter = V_KeyFilter;
                 }
                 return filteredcollectionview;
-            }   
+            }
         }
-        
 
         public ObservableCollection<ComplianceEntry> ComplianceEntries
         {
@@ -73,7 +70,6 @@ namespace FeTool.ViewModels
             set { selectedV_Key = value;
                 NotifyPropertyChanged("SelectedV_Key");
             }
-            
         }
         public string SelectedSystem_Name
         {
@@ -83,7 +79,6 @@ namespace FeTool.ViewModels
                 selectedsystem_name = value;
                 NotifyPropertyChanged("SelectedSystem_Name");
             }
-
         }
 
         public string SelectedStig_ID
@@ -94,7 +89,6 @@ namespace FeTool.ViewModels
                 selectedstig_id = value;
                 NotifyPropertyChanged("SelectedStig_ID");
             }
-
         }
 
         public string SelectedUser
@@ -105,7 +99,6 @@ namespace FeTool.ViewModels
                 selecteduser = value;
                 NotifyPropertyChanged("SelectedUser");
             }
-
         }
 
         private bool V_KeyFilter(object item)
@@ -160,4 +153,3 @@ namespace FeTool.ViewModels
         }
     }
 }
-

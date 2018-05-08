@@ -136,7 +136,7 @@ namespace FeTool
 
                         //Add to Transactions
                         SQLiteCommand command = new SQLiteCommand("INSERT INTO Transactions(transactionDateTime, userID)" +
-                            "VALUES (" + dateTime + ", " + globalvariables.SessionUser +")", connection);
+                            "VALUES (" + dateTime + ", '" + globalvariables.SessionUser +"')", connection);
                         command.ExecuteNonQuery();
                         long transactionID = connection.LastInsertRowId;
 
@@ -200,9 +200,9 @@ namespace FeTool
                             //Add to ComplianceEntries
                             command = new SQLiteCommand("INSERT INTO ComplianceEntries(System_Name,Topic,PDI,V_Key," +
                                 "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, comments, Stig_ID)" +
-                                "VALUES (" + systemName + ", " + topic + ", " + pdi + ", " + vKey + ", " + cat + ", " +
-                                discussion + ", " + notes + ", " + recommendation + ", " + iaControl + ", " + status +
-                                ")", connection);
+                                "VALUES ('" + systemName + "', '" + topic + "', '" + pdi + "', '" + vKey + "', " + cat + ", '" +
+                                discussion + "', '" + notes + "', '" + recommendation + "', '" + iaControl + "', '" + status +
+                                "')", connection);
                             command.ExecuteNonQuery();
                             command.Dispose();
                             }
