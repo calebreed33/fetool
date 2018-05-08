@@ -22,8 +22,9 @@ using System.Collections;
 namespace FeTool
 {
     //TODO: These variables should later operate in the global:: namespace
-    public static class globalvariables{
-            public static List<string> DatabaseLocations = new List<string>();
+    public static class globalvariables
+    {
+        public static List<string> DatabaseLocations = new List<string>();
         public static string SessionUser;
     }
 
@@ -42,7 +43,8 @@ namespace FeTool
         private void ComboBox_DropDownOpened(object sender, EventArgs e)
         {
             UsernameBox.Items.Clear();
-            foreach (string database in globalvariables.DatabaseLocations){
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     sqlite_connection.Open();
@@ -57,7 +59,7 @@ namespace FeTool
                                 UsernameBox.Items.Add(reader["userID"]);
                             }
                             reader.Close();
-                           
+
                             command.Dispose();
                         }
                         sqlite_connection.Close();
@@ -66,7 +68,8 @@ namespace FeTool
             }
         }
 
-        private void ComboBox_SelectionChanged (object sender, RoutedEventArgs e){
+        private void ComboBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
         }
 
         private void ImportData(object sender, RoutedEventArgs e)
@@ -88,7 +91,8 @@ namespace FeTool
 
                 // Verify the database connection/location
                 string messageBoxText = "Connected to:";
-                foreach (string databaseitem in globalvariables.DatabaseLocations) {
+                foreach (string databaseitem in globalvariables.DatabaseLocations)
+                {
                     messageBoxText = messageBoxText + Environment.NewLine + databaseitem.Split('\\').Last();
                 }
 
@@ -101,7 +105,8 @@ namespace FeTool
 
         private void LoginClick(object sender, RoutedEventArgs e)
         {
-            foreach (string database in globalvariables.DatabaseLocations){
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     sqlite_connection.Open();
@@ -125,7 +130,6 @@ namespace FeTool
                                         MainWindow window = new MainWindow();
                                         this.Close();
                                         window.ShowDialog();
-                                        
                                     }
                                     else
                                     {
@@ -137,13 +141,8 @@ namespace FeTool
                                     }
                                 }
                             }
-                            
-                            
                         }
-                        
-                        
                     }
-                   
                 }
             }
         }

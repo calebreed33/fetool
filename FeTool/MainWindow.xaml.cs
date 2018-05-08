@@ -142,7 +142,7 @@ namespace FeTool
                             string vKey = dataTable.Rows[i][4].ToString();
                             string cat = dataTable.Rows[i][5].ToString();
                             string discussion = dataTable.Rows[i][6].ToString();
-                            string notes = dataTable.Rows[i][0].ToString();
+                            string notes = dataTable.Rows[i][7].ToString();
                             string recommendation = dataTable.Rows[i][8].ToString();
                             string iaControl = dataTable.Rows[i][9].ToString();
                             string status = dataTable.Rows[i][10].ToString();
@@ -278,7 +278,6 @@ namespace FeTool
 
         private void user_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
     }
 }
