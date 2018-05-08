@@ -45,7 +45,6 @@ namespace FeTool
             foreach (string database in globalvariables.DatabaseLocations){
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
-                    
                     sqlite_connection.Open();
 
                     string sql = "select userID from Users;";
@@ -61,9 +60,7 @@ namespace FeTool
                             sqlite_connection.Close();
                             command.Dispose();
                         }
-
                     }
-
                 }
             }
         }
@@ -108,7 +105,7 @@ namespace FeTool
                 {
                     sqlite_connection.Open();
                     //try
-                    string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
+                    string sql = "SELECT userPassword FROM Users WHERE userID='" + (string)UsernameBox.SelectedItem + "';";
                     globalvariables.SessionUser = (string)UsernameBox.SelectedItem;
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
