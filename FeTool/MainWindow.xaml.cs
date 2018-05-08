@@ -32,6 +32,7 @@ namespace FeTool
         {
             InitializeComponent();
             this.DataContext = new MainWindowVM();
+            
             StackPanel1.DataContext = new ExpanderListViewModel();
             Generate_Users();
         }

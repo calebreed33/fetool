@@ -88,7 +88,9 @@
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\CommentEntry.cs" />
     <Compile Include="Models\ComplianceEntry.cs" />
+    <Compile Include="ViewModels\CommentHistoryVM.cs" />
     <Compile Include="ViewModels\ExpanderListViewModel.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="CommentHistory.xaml">

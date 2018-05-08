@@ -28,6 +28,7 @@ namespace FeTool.ViewModels
         private ObservableCollection<ComplianceEntry> complianceEntries;
         private ObservableCollection<string> system_names;
         private ObservableCollection<string> stig_ids;
+        
         private ICollectionView filteredcollectionview;
 
         public ICollectionView FilteredComplianceEntries
@@ -41,6 +42,7 @@ namespace FeTool.ViewModels
                 return filteredcollectionview;
             }   
         }
+        
 
         public ObservableCollection<ComplianceEntry> ComplianceEntries
         {
