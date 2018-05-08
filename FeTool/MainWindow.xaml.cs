@@ -254,14 +254,14 @@ namespace FeTool
                 {
                     sqlite_connection.Open();
 
-                    string sql = "select permType from Permissions";
+                    string sql = "select userID from Comments";
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                usercombobox.Items.Add(reader["permType"]);
+                                usercombobox.Items.Add(reader["userID"]);
                             }
                             reader.Close();
                             sqlite_connection.Close();
@@ -279,6 +279,7 @@ namespace FeTool
 
         private void user_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
         }
     }
 }
