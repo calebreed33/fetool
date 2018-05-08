@@ -1,5 +1,6 @@
 ﻿using FeTool.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.SQLite;
@@ -17,6 +18,7 @@ namespace FeTool.ViewModels
             this.System_names = new ObservableCollection<string>();
             this.Stig_IDs = new ObservableCollection<string>();
             this.Users = new ObservableCollection<string>();
+            this.Comments = new ObservableCollection<string>();
             onLoad();
             Generate_Users();
             if (System_names.Count > 0) SelectedSystem_Name = System_names.ElementAt(0);
@@ -64,11 +66,17 @@ namespace FeTool.ViewModels
             get { return users; }
             set { users = value; }
         }
+        public ObservableCollection<string> Comments
+        {
+            get { return comments; }
+            set { comments = value; }
+        }
 
         private ComplianceEntry selectedV_Key;
         private string selectedsystem_name;
         private string selectedstig_id;
         private string selecteduser;
+        private string mostrecentcomment;
 
         public ComplianceEntry SelectedV_Key
         {
@@ -104,7 +112,62 @@ namespace FeTool.ViewModels
             {
                 selecteduser = value;
                 NotifyPropertyChanged("SelectedUser");
+                MostRecentComment = FindMostRecentComment();
             }
+        }
+
+        public string MostRecentComment
+        {
+            get { return mostrecentcomment; }
+            set
+            {
+                mostrecentcomment = value;
+                NotifyPropertyChanged("MostRecentComment");
+            }
+        }
+
+        private string FindMostRecentComment()
+        {
+            List<CommentEntry> commentList = new List<CommentEntry>();
+
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    sqlite_connection.Open();
+
+                    string sql = "select commentText,transactionDateTime,Comments.userID from Comments inner join Transactions on Comments.transactionID = Transactions.transactionID";
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CommentEntry ce = new CommentEntry();
+                                ce.Comment = reader["commentText"] as string ?? "";
+                                ce.UserID = reader["userID"] as string ?? "";
+                                ce.TransactionDateTime = (long)reader["transactionDateTime"];
+                                commentList.Add(ce);
+                            }
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
+                    }
+                }
+            }
+            long latestDateTime = 0;
+            CommentEntry latestComment = new CommentEntry();
+
+            foreach(CommentEntry ce in commentList)
+            {
+                if(ce.TransactionDateTime > latestDateTime && ce.UserID == SelectedUser)
+                {
+                    latestComment = ce;
+                    latestDateTime = ce.TransactionDateTime;
+                }
+            }
+            return latestComment.Comment;
         }
 
         private bool V_KeyFilter(object item)
@@ -122,7 +185,7 @@ namespace FeTool.ViewModels
                 {
                     sqlite_connection.Open();
 
-                    string sql = "select System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
+                    string sql = "select Recommendation,IA_Controls,Notes,Topic,PDI,Status,System_Name,V_Key,Cat,Discussion,Stig_ID from ComplianceEntries";
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
@@ -136,7 +199,13 @@ namespace FeTool.ViewModels
                                 complianceEntry.V_key = (string)reader["V_Key"];
                                 complianceEntry.Stig_ID = (string)reader["Stig_ID"];
                                 complianceEntry.Cat = (long)reader["Cat"];
+                                complianceEntry.Status = (string)reader["Status"];
                                 complianceEntry.Discussion = (string)reader["Discussion"];
+                                complianceEntry.Pdi = (string)reader["PDI"];
+                                complianceEntry.Topic = (string)reader["Topic"];
+                                complianceEntry.Notes = (string)reader["Notes"];
+                                complianceEntry.Ia_controls = (string)reader["IA_Controls"];
+                                complianceEntry.Recommendation = (string)reader["Recommendation"];
                                 this.ComplianceEntries.Add(complianceEntry);
                             }
                             Stig_IDs.Add("All Stigs");
@@ -166,9 +235,8 @@ namespace FeTool.ViewModels
                         {
                             while (reader.Read())
                             {
-                                CommentEntry currentCommentEntries = new CommentEntry();
-                                currentCommentEntries.UserID = (reader["userID"] as string);
-                                currentCommentEntries.Comment = (reader["commentText"] as string);
+                                Users.Add(reader["userID"] as string);
+                                Comments.Add(reader["commentText"] as string);
                             }
                             reader.Close();
                             sqlite_connection.Close();

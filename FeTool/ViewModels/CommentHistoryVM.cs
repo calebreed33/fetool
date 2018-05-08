@@ -62,7 +62,7 @@ namespace FeTool.ViewModels
 
                     sqlite_connection.Open();
 
-                    string sql = "select commentText,userID from Comments;";
+                    string sql = "select V_Key,Stig_Name,System_Name,entryID,transactionID,commentText,userID from Comments;";
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
@@ -73,6 +73,11 @@ namespace FeTool.ViewModels
                                 ce.Comment = (string)reader["commentText"];
                                 ce.UserID = reader["userID"] as string ?? "";
                                 UserAccounts.Add(reader["userID"] as string ?? "");
+                                ce.TransactionID = reader["transactionID"] as string ?? "";
+                                ce.EntryID = reader["entryID"] as string ?? "";
+                                ce.System_Name = reader["System_Name"] as string ?? "";
+                                ce.Stig_Name = reader["Stig_Name"] as string ?? "";
+                                ce.V_Key = reader["V_Key"] as string ?? "";
                                 Comments.Add(ce);
                             }
                             reader.Close();
@@ -85,7 +90,6 @@ namespace FeTool.ViewModels
                 }
 
             }
-
 
         }
 

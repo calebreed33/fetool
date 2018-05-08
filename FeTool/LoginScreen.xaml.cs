@@ -124,6 +124,7 @@ namespace FeTool
                                 { //This line may not even be necessary
                                     if (reader["userPassword"].ToString() == PasswordBox.Password.ToString())
                                     {
+
                                         reader.Close();
                                         command.Dispose();
                                         sqlite_connection.Close();

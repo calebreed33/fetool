@@ -39,32 +39,17 @@ namespace FeTool
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
-                SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
                     {
                         sqlite_connection.Open();
-                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null)";
+                        cmd.CommandText = "INSERT INTO Comments (commentText, commentID, userID) VALUES (@commentText, Null, " + globalvariables.SessionUser + ")";
 
                         cmd.Parameters.AddWithValue("commentText", commentText.Text);
                         cmd.Parameters.AddWithValue("commentID", " ");
 
                         cmd.ExecuteNonQuery();
-
-                        cmd.CommandText = "SELECT * FROM Comments";
-
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                string comment = reader["commentText"].ToString();
-                                commentText.Text += comment + '\n';
-                                Console.WriteLine(commentText);
-                            }
-                            reader.Close();
-                        }
-                        commentText.Clear();
                     }
                     sqlite_connection.Close();
                 }

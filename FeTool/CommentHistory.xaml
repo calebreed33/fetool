@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeTool"
         mc:Ignorable="d"
-        Title="Comment History" Height="300" Width="400">
+        Title="Comment History" Height="300" Width="750">
 
     <Window.Resources>
         <Style  TargetType="{x:Type ListBoxItem}">
