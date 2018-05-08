@@ -22,62 +22,26 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="90*"/>
+            <RowDefinition Height="34"/>
+            <RowDefinition/>
+            <RowDefinition Height="382.666666666667"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="75"/>
+        </Grid.ColumnDefinitions>
 
-        <Label Content="Name of Account Logged In : Name of STIG : Name of V-KEY" Background="#FFAEAEAE" />
+        <Label Content="ID" Background="#FFAEAEAE" Grid.ColumnSpan="1" Grid.RowSpan="1" MaxHeight="45" MaxWidth="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0.333,0" />
+        <Label Content="Timestamp" Background="#FFAEAEAE" Grid.RowSpan="1" MaxHeight="45" MaxWidth="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="31,0,0.667,0" Grid.ColumnSpan="2" />
+        <Label Content="User" Background="#FFAEAEAE" Grid.ColumnSpan="2" Grid.RowSpan="1" MaxHeight="45" MaxWidth="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="100.667,0,0,0" Grid.Column="1" />
+        <Label Content="Comment" Background="#FFAEAEAE" Grid.RowSpan="1" MaxHeight="45" MaxWidth="725" Margin="0.333,0,-530.333,0" Grid.Column="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        <ListBox Margin="0,1,-130.333,145.667" Name="commentList" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2" />
 
-        <ListBox HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="2" AlternationCount="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-            <ListBoxItem>
-                <TextBlock TextWrapping="Wrap"> Sample Comment Text</TextBlock>
-            </ListBoxItem>
-        </ListBox>
+
+
 
     </Grid>
 </Window>

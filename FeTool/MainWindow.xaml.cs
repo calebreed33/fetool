@@ -53,13 +53,11 @@ namespace FeTool
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
-                SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
                     {
                         sqlite_connection.Open();
-
                         cmd.CommandText = "INSERT INTO Comments (commentText, commentID) VALUES (@commentText, Null)";
 
                         cmd.Parameters.AddWithValue("commentText", commentText.Text);
@@ -75,16 +73,17 @@ namespace FeTool
                             {
                                 string comment = reader["commentText"].ToString();
                                 commentText.Text += comment + '\n';
+                                Console.WriteLine(commentText);
                             }
                             reader.Close();
                         }
                         commentText.Clear();
+
                     }
                     sqlite_connection.Close();
                 }
             }
         }
-
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
