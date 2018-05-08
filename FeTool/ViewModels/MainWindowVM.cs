@@ -16,7 +16,9 @@ namespace FeTool.ViewModels
             this.ComplianceEntries = new ObservableCollection<ComplianceEntry>();
             this.System_names = new ObservableCollection<string>();
             this.Stig_IDs = new ObservableCollection<string>();
+            this.Users = new ObservableCollection<string>();
             onLoad();
+            Generate_Users();
             if (System_names.Count > 0) SelectedSystem_Name = System_names.ElementAt(0);
             if (Stig_IDs.Count > 0) SelectedStig_ID = Stig_IDs.ElementAt(0);
         }
@@ -24,6 +26,8 @@ namespace FeTool.ViewModels
         private ObservableCollection<ComplianceEntry> complianceEntries;
         private ObservableCollection<string> system_names;
         private ObservableCollection<string> stig_ids;
+        private ObservableCollection<string> users;
+        private ObservableCollection<string> comments;
 
         private ICollectionView filteredcollectionview;
 
@@ -54,6 +58,11 @@ namespace FeTool.ViewModels
         {
             get { return stig_ids; }
             set { stig_ids = value; }
+        }
+        public ObservableCollection<string> Users
+        {
+            get { return users; }
+            set { users = value; }
         }
 
         private ComplianceEntry selectedV_Key;
@@ -102,7 +111,7 @@ namespace FeTool.ViewModels
         {
             ComplianceEntry v_key = item as ComplianceEntry;
 
-            return ((SelectedStig_ID == v_key.Stig_ID) && (SelectedSystem_Name == v_key.System_name));
+            return ((SelectedStig_ID == v_key.Stig_ID) && (SelectedSystem_Name == v_key.System_name)) || (SelectedStig_ID=="All Stigs" && (SelectedSystem_Name == v_key.System_name)) || (SelectedSystem_Name == "All Systems" && (SelectedStig_ID == v_key.Stig_ID));
         }
 
         private void onLoad()
@@ -129,6 +138,37 @@ namespace FeTool.ViewModels
                                 complianceEntry.Cat = (long)reader["Cat"];
                                 complianceEntry.Discussion = (string)reader["Discussion"];
                                 this.ComplianceEntries.Add(complianceEntry);
+                            }
+                            Stig_IDs.Add("All Stigs");
+                            System_names.Add("All Systems");
+
+                            reader.Close();
+                            sqlite_connection.Close();
+                            command.Dispose();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Generate_Users()
+        {
+            foreach (string database in globalvariables.DatabaseLocations)
+            {
+                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
+                {
+                    sqlite_connection.Open();
+
+                    string sql = "select userID,commentText from Comments";
+                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
+                    {
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                CommentEntry currentCommentEntries = new CommentEntry();
+                                currentCommentEntries.UserID = (reader["userID"] as string);
+                                currentCommentEntries.Comment = (reader["commentText"] as string);
                             }
                             reader.Close();
                             sqlite_connection.Close();

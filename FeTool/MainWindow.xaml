@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:FeTool"
         xmlns:converters="clr-namespace:FeTool.Converters"
         mc:Ignorable="d"
-        Title="FeToolv0.0" Height="700" Width="1000" Background="White">
+        Title="FeToolv1.0" Height="700" Width="1000" Background="White">
 
     <Window.Resources>
         <Style  TargetType="{x:Type ListBoxItem}">
@@ -175,7 +175,7 @@
             <Label Grid.Row="4" Content="Viewing Channel:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="#FFE5E5E5" />
 
             <ComboBox x:Name="usercombobox" Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="user_SelectionChanged" 
-                        ItemsSource="{Binding Perm_Type}" SelectedItem="{Binding SelectedUser}" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Grid.ColumnSpan="2" Margin="129,0.333,0,-0.333" Width="517"/>
+                        ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" DataContext="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Grid.ColumnSpan="2" Margin="129,0.333,0,-0.333" Width="517"/>
         </Grid>
     </Grid>
 </Window>

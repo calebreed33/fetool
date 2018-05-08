@@ -20,7 +20,6 @@ namespace FeTool
             this.DataContext = new MainWindowVM();
 
             StackPanel1.DataContext = new ExpanderListViewModel();
-            Generate_Users();
         }
 
         private void LogoutClick(object sender, RoutedEventArgs e)
@@ -245,31 +244,7 @@ namespace FeTool
         }
 
         //private void ListBox_OnLaunch(object sender, RoutedEventArgs e)
-        private void Generate_Users()
-        {
-            foreach (string database in globalvariables.DatabaseLocations)
-            {
-                using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
-                {
-                    sqlite_connection.Open();
 
-                    string sql = "select userID from Comments";
-                    using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
-                    {
-                        using (SQLiteDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                usercombobox.Items.Add(reader["userID"]);
-                            }
-                            reader.Close();
-                            sqlite_connection.Close();
-                            command.Dispose();
-                        }
-                    }
-                }
-            }
-        }
 
         private void v_keybox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

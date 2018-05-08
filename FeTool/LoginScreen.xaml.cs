@@ -138,10 +138,8 @@ namespace FeTool
                                 }
                             }
                             
-                            
                         }
-                        
-                        
+                         
                     }
                    
                 }
