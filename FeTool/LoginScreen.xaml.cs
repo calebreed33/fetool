@@ -24,7 +24,7 @@ namespace FeTool
     //TODO: These variables should later operate in the global:: namespace
     public static class globalvariables{
             public static List<string> DatabaseLocations = new List<string>();
-            
+        public static string SessionUser;
     }
 
     public partial class LoginScreen : Window
@@ -109,6 +109,7 @@ namespace FeTool
                     sqlite_connection.Open();
                     //try
                     string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
+                    globalvariables.SessionUser = UsernameBox.SelectedItem;
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
