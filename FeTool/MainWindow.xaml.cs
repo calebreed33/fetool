@@ -68,11 +68,12 @@ namespace FeTool
                         commentText.Clear();
                     }
                     sqlite_connection.Close();
+
                 }
                 
             }
         }
-        private void ImportBaselineClick(object sender, RoutedEventArgs e)
+            private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
@@ -127,12 +128,12 @@ namespace FeTool
                             "VALUES (" + dateTime + ", '" + globalvariables.SessionUser +"')", connection);
                         command.ExecuteNonQuery();
                         long transactionID = connection.LastInsertRowId;
-
+                        command.Dispose();
                         //Add to DataSets
                         command = new SQLiteCommand("INSERT INTO DataSets(dataSetType,transactionID)" +
                             "VALUES (" + "'Baseline', " + transactionID + ")", connection);
                         command.ExecuteNonQuery();
-
+                        command.Dispose();
                         //While there are unread rows in dataTable, import data from each row
                         while (i <= dataTable.Select().Length)
                         {
@@ -194,6 +195,7 @@ namespace FeTool
                             command.ExecuteNonQuery();
                             command.Dispose();
                             }
+                        connection.Close();
                             i++;
                         }
                     }
