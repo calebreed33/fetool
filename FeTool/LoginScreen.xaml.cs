@@ -109,7 +109,7 @@ namespace FeTool
                     sqlite_connection.Open();
                     //try
                     string sql = "SELECT userPassword FROM Users WHERE userID=" + UsernameBox.SelectedItem + ";";
-                    globalvariables.SessionUser = UsernameBox.SelectedItem;
+                    globalvariables.SessionUser = (string)UsernameBox.SelectedItem;
                     using (SQLiteCommand command = new SQLiteCommand(sql, sqlite_connection))
                     {
                         using (SQLiteDataReader reader = command.ExecuteReader())
