@@ -68,12 +68,10 @@ namespace FeTool
                         commentText.Clear();
                     }
                     sqlite_connection.Close();
-
                 }
-                
             }
         }
-            private void ImportBaselineClick(object sender, RoutedEventArgs e)
+        private void ImportBaselineClick(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
@@ -125,7 +123,7 @@ namespace FeTool
 
                         //Add to Transactions
                         SQLiteCommand command = new SQLiteCommand("INSERT INTO Transactions(transactionDateTime, userID)" +
-                            "VALUES (" + dateTime + ", '" + globalvariables.SessionUser +"')", connection);
+                            "VALUES (" + dateTime + ", '" + globalvariables.SessionUser + "')", connection);
                         command.ExecuteNonQuery();
                         long transactionID = connection.LastInsertRowId;
                         command.Dispose();
@@ -135,7 +133,7 @@ namespace FeTool
                         command.ExecuteNonQuery();
                         command.Dispose();
                         //While there are unread rows in dataTable, import data from each row
-                        while (i <= dataTable.Select().Length)
+                        while (i < dataTable.Select().Length)
                         {
                             string systemName = dataTable.Rows[i][0].ToString();
                             string checklist = dataTable.Rows[i][1].ToString();
@@ -149,56 +147,56 @@ namespace FeTool
                             string iaControl = dataTable.Rows[i][9].ToString();
                             string status = dataTable.Rows[i][10].ToString();
 
-//Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
-/*
-                            //if SysName not in DB.Systems, add it
-                            command = new SQLiteCommand("Select System_ID FROM Systems WHERE System_Name=" + systemName + ";", connection);
-                            SQLiteDataReader tempreader = command.ExecuteReader();
-                            if (tempreader.Read() == false)
-                            {
-                                command = new SQLiteCommand("INSERT INTO Systems VALUES (NULL," + systemName + ");", connection);
-                                command.ExecuteNonQuery();
-                                tempreader = command.ExecuteReader();
-                            }
-                            tempreader.Read();
-                            int sysID = (int)tempreader["System_Name"];
+                            //Use this code when you switch to a distributed DB, i.e. you're using separate tables for systems, STIGs, etc.
+                            /*
+                                                        //if SysName not in DB.Systems, add it
+                                                        command = new SQLiteCommand("Select System_ID FROM Systems WHERE System_Name=" + systemName + ";", connection);
+                                                        SQLiteDataReader tempreader = command.ExecuteReader();
+                                                        if (tempreader.Read() == false)
+                                                        {
+                                                            command = new SQLiteCommand("INSERT INTO Systems VALUES (NULL," + systemName + ");", connection);
+                                                            command.ExecuteNonQuery();
+                                                            tempreader = command.ExecuteReader();
+                                                        }
+                                                        tempreader.Read();
+                                                        int sysID = (int)tempreader["System_Name"];
 
-                            //if SysName not in DB.Stigs, add it
-                            command = new SQLiteCommand("Select System_ID FROM STIGs WHERE Stig_Name=" + checklist + ";", connection);
-                            tempreader = command.ExecuteReader();
-                            if (tempreader.Read() == false)
-                            {
-                                command = new SQLiteCommand("INSERT INTO STIGs VALUES (NULL," + checklist + ");", connection);
-                                command.ExecuteNonQuery();
-                            }
-                            tempreader.Read();
-                            int stigID = (int)tempreader["Stig_ID"];
+                                                        //if SysName not in DB.Stigs, add it
+                                                        command = new SQLiteCommand("Select System_ID FROM STIGs WHERE Stig_Name=" + checklist + ";", connection);
+                                                        tempreader = command.ExecuteReader();
+                                                        if (tempreader.Read() == false)
+                                                        {
+                                                            command = new SQLiteCommand("INSERT INTO STIGs VALUES (NULL," + checklist + ");", connection);
+                                                            command.ExecuteNonQuery();
+                                                        }
+                                                        tempreader.Read();
+                                                        int stigID = (int)tempreader["Stig_ID"];
 
-                            //if V-Key not in DB.VKeys, add it
-                            command = new SQLiteCommand("SELECT COUNT(VKey_ID) FROM VKeys WHERE VKey_ID=" + vKey + ";", connection);
-                            tempreader = command.ExecuteReader();
-                            if (tempreader.Read() == false)
-                            {
-                                command = new SQLiteCommand("INSERT INTO VKeys VALUES ("+ vKey +");", connection);
-                                command.ExecuteNonQuery();
-                            }
-                            tempreader.Read();
-                            int stigID = (int)tempreader["Stig_ID"];
-    */
+                                                        //if V-Key not in DB.VKeys, add it
+                                                        command = new SQLiteCommand("SELECT COUNT(VKey_ID) FROM VKeys WHERE VKey_ID=" + vKey + ";", connection);
+                                                        tempreader = command.ExecuteReader();
+                                                        if (tempreader.Read() == false)
+                                                        {
+                                                            command = new SQLiteCommand("INSERT INTO VKeys VALUES ("+ vKey +");", connection);
+                                                            command.ExecuteNonQuery();
+                                                        }
+                                                        tempreader.Read();
+                                                        int stigID = (int)tempreader["Stig_ID"];
+                                */
 
                             //Add to ComplianceEntries
                             command = new SQLiteCommand("INSERT INTO ComplianceEntries(System_Name,Topic,PDI,V_Key," +
-                                "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, comments, Stig_ID)" +
+                                "Cat, Discussion, Notes, Recommendation, IA_Controls, Status, Stig_ID)" +
                                 "VALUES ('" + systemName + "', '" + topic + "', '" + pdi + "', '" + vKey + "', " + cat + ", '" +
                                 discussion + "', '" + notes + "', '" + recommendation + "', '" + iaControl + "', '" + status +
-                                "')", connection);
+                                "', '" + checklist + "')", connection);
                             command.ExecuteNonQuery();
                             command.Dispose();
-                            }
-                        connection.Close();
                             i++;
                         }
+                        connection.Close();
                     }
+                }
 
                 reader.Close();
 
@@ -208,7 +206,8 @@ namespace FeTool
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBox.Show(messageBoxText, caption, button, icon);
             }
-            else{
+            else
+            {
                 string messageBoxText = "Import Failed: Invalid File";
                 string caption = "Import Failed";
                 MessageBoxButton button = MessageBoxButton.OK;
