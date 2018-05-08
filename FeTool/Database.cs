@@ -15,6 +15,9 @@ for connecting and interacting with the database
 
 namespace FeTool
 {
+
+}
+/*{
     static class SQLiteDB
     {
         private static SQLiteConnection sql_con;
@@ -62,4 +65,4 @@ namespace FeTool
     }
 
     
-}
+}*/

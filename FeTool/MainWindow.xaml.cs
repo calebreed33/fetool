@@ -1,24 +1,10 @@
 ﻿using FeTool.ViewModels;
-using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.IO;
-using System.Collections;
 using ExcelDataReader;
 
 namespace FeTool
@@ -54,6 +40,7 @@ namespace FeTool
         {
             foreach (string database in globalvariables.DatabaseLocations)
             {
+                SQLiteConnection.ClearAllPools();
                 using (SQLiteConnection sqlite_connection = new SQLiteConnection("Data Source=" + database + ";Version=3;"))
                 {
                     using (SQLiteCommand cmd = new SQLiteCommand(sqlite_connection))
@@ -83,6 +70,7 @@ namespace FeTool
                     }
                     sqlite_connection.Close();
                 }
+                
             }
         }
         private void ImportBaselineClick(object sender, RoutedEventArgs e)
