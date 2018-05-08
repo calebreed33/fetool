@@ -57,9 +57,10 @@ namespace FeTool
                                 UsernameBox.Items.Add(reader["userID"]);
                             }
                             reader.Close();
-                            sqlite_connection.Close();
+                           
                             command.Dispose();
                         }
+                        sqlite_connection.Close();
                     }
                 }
             }
@@ -118,9 +119,13 @@ namespace FeTool
                                 { //This line may not even be necessary
                                     if (reader["userPassword"].ToString() == PasswordBox.Password.ToString())
                                     {
+                                        reader.Close();
+                                        command.Dispose();
+                                        sqlite_connection.Close();
                                         MainWindow window = new MainWindow();
                                         this.Close();
                                         window.ShowDialog();
+                                        
                                     }
                                     else
                                     {
@@ -132,11 +137,13 @@ namespace FeTool
                                     }
                                 }
                             }
-                            reader.Close();
+                            
+                            
                         }
-                        sqlite_connection.Close();
-                        command.Dispose();
+                        
+                        
                     }
+                   
                 }
             }
         }
