@@ -235,7 +235,7 @@ namespace FeTool.ViewModels
                         {
                             while (reader.Read())
                             {
-                                Users.Add(reader["userID"] as string);
+                                if (!Users.Contains((string)reader["userID"])) Users.Add((string)reader["userID"]);
                                 Comments.Add(reader["commentText"] as string);
                             }
                             reader.Close();

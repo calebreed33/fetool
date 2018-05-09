@@ -72,7 +72,7 @@ namespace FeTool.ViewModels
                                 CommentEntry ce = new CommentEntry();
                                 ce.Comment = (string)reader["commentText"];
                                 ce.UserID = reader["userID"] as string ?? "";
-                                UserAccounts.Add(reader["userID"] as string ?? "");
+                                if (!UserAccounts.Contains(reader["userID"] as string)) UserAccounts.Add(reader["userID"] as string);
                                 ce.TransactionID = reader["transactionID"] as string ?? "";
                                 ce.EntryID = reader["entryID"] as string ?? "";
                                 ce.System_Name = reader["System_Name"] as string ?? "";
